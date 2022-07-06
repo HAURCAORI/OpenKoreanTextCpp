@@ -34,7 +34,7 @@ DEPS = $(OBJECTS:.o=.d)
 
 all: main
 
-	$(CC) -x c++-header include/stdafx.h -o include/stdafx.h.gch
+#$(CC) -x c++-header include/stdafx.h -o include/stdafx.h.gch
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CC) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ -MD $(LDFLAGS)

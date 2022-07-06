@@ -1,8 +1,7 @@
 #pragma once
-#include "stdafx.h"
 #include <KoreanNormalizer.hpp>
 
-
+namespace OpenKorean {
 class OpenKoreanTextProcessor {
 private:
     KoreanNormalizer mKoreanNormalizer;
@@ -20,3 +19,4 @@ public:
     }
     */
 };
+}
