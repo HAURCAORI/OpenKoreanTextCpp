@@ -1,7 +1,7 @@
 CC = g++
 
 # C++ 컴파일러 옵션
-CXXFLAGS = -Wall -O2
+CXXFLAGS = -Wall -O2 
 
 # 링커 옵션
 LDFLAGS =
@@ -33,6 +33,8 @@ OBJECTS = $(patsubst %.o,$(OBJ_DIR)/%.o,$(OBJS))
 DEPS = $(OBJECTS:.o=.d)
 
 all: main
+
+	$(CC) -x c++-header include/stdafx.h -o include/stdafx.h.gch
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CC) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ -MD $(LDFLAGS)

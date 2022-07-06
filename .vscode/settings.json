@@ -55,6 +55,8 @@
         "unordered_set": "cpp",
         "map": "cpp",
         "cstring": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
     }
 }
