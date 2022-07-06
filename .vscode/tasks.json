@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "runner": "terminal",
+    "tasks": [
+        {
+            "label": "c++ build",
+            "type": "shell",
+            "command": "make",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Commit",
+            "type": "shell",
+            "command": "git add .; git commit -m vscode;git push origin master;",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "excute",
+            "type": "shell",
+            "command": "${workspaceFolder}/bin/main",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "g++ build active file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            }
+        }
+    ]
+}
