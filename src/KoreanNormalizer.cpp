@@ -1,20 +1,6 @@
 #include "KoreanNormalizer.hpp"
-#include <functional>
+#include "StringProcess.hpp"
 
-typedef std::function<std::string(const std::string&)> FType;
-std::string replaceAll(const std::string& input, std::regex regex, FType func) {
-    std::string output;
-    
-    auto start = std::sregex_iterator(input.begin(), input.end(), regex);
-    auto end = std::sregex_iterator();
-    while(start != end) {
-        output += start->prefix().str();
-        output += func(start->str());
-        ++start;
-    }
-    
-    return output;
-}
 
 namespace OpenKorean {
     const std::regex EXTENTED_KOREAN_REGEX = std::regex(R"(([ㄱ-ㅣ가-힣]+))");
@@ -24,15 +10,21 @@ namespace OpenKorean {
     const std::regex WHITESPACE_REGEX = std::regex(R"(\s+)");
     const std::vector<std::string> CODA_N_EXCPETION = {"은","는","운","인","텐","근","른","픈","닌","든","던"};
 
-    static std::string normalizeKoreanChunk(const std::string& input) {
-        std::string a = "test";
-        return a;
+    static stringMatchRet processNormalizationCandidate(stringMatchArg match) {
+        std::string chunk = match.str(1);
+        std::string toNormalize = match.str(2);
+        std::cout << "chunk" << chunk << "/" << toNormalize << std::endl;
+        return chunk;
+    }
+    static stringMatchRet normalizeKoreanChunk(stringMatchArg match) {
+        std::string output = replaceAll(match[0],KOREAN_TO_NORMALIZE_REGEX,processNormalizationCandidate);
+        return output;
     }
 
     std::string KoreanNormalizer::normalize(const std::string& input) {
         std::string output = replaceAll(input,EXTENTED_KOREAN_REGEX, normalizeKoreanChunk);
 
-        std::cout << output << std::endl;
+        //std::cout << output << std::endl;
         //std::replace(input,EXTENTED_KOREAN_REGEX,normalizeKoreanChunk())
         return output;
     }

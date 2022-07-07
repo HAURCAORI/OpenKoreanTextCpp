@@ -1,6 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include <regex>
 
 namespace OpenKorean {
 //Segment
@@ -13,10 +12,10 @@ struct Segment {
 class KoreanNormalizer {
     private:
     //std::string normalizeKoreanChunk(const std::string& input);
-    std::string correctTypo(std::string chunk); //protected
-    std::string normalizeCodaN(std::string chunk); //protected
-    std::string processNormalizationCandidate(std::vector<std::string> m); //Match
-    std::string normalizeEmitionAttachedChunk(std::string s, std::string toNormalize);
+    //std::string correctTypo(std::string chunk); //protected
+    //std::string normalizeCodaN(std::string chunk); //protected
+    //std::string processNormalizationCandidate(std::vector<std::string> m); //Match
+    //std::string normalizeEmitionAttachedChunk(std::string s, std::string toNormalize);
 
     public:
     std::string normalize(const std::string& input);
