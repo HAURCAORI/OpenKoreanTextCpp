@@ -7,7 +7,7 @@ private:
     KoreanNormalizer mKoreanNormalizer;
 
 public:
-    inline std::string normalize(std::string text) {
+    inline std::wstring normalize(std::wstring text) {
         return mKoreanNormalizer.normalize(text);
     }
     /*

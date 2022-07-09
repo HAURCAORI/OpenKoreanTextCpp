@@ -3,16 +3,16 @@
 #include <functional>
 
 
-typedef std::function<std::string(const std::smatch&)> stringMatchFunc;
+typedef std::function<std::wstring(const std::wsmatch&)> stringMatchFunc;
 typedef stringMatchFunc::argument_type stringMatchArg;
 typedef stringMatchFunc::result_type stringMatchRet;
 
-std::string replaceAll(const std::string& input, std::regex regex, stringMatchFunc func) {
-    std::string output;
+inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, stringMatchFunc func) {
+    std::wstring output;
     output.reserve(input.size());
 
-    auto start = std::sregex_iterator(input.begin(), input.end(), regex);
-    auto end = std::sregex_iterator();
+    auto start = std::wsregex_iterator(input.begin(), input.end(), regex);
+    auto end = std::wsregex_iterator();
     while(start != end) {
         output += start->prefix().str();
         output += func((*start));

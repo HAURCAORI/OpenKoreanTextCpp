@@ -1,11 +1,10 @@
-#pragma once
 #include "stdafx.h"
 
 namespace OpenKorean {
 //Segment
 struct Segment {
-    std::string text;
-    std::vector<std::string> matchData;
+    std::wstring text;
+    std::vector<std::wstring> matchData;
 };
 
 //KoreanNormalizer
@@ -18,7 +17,7 @@ class KoreanNormalizer {
     //std::string normalizeEmitionAttachedChunk(std::string s, std::string toNormalize);
 
     public:
-    std::string normalize(const std::string& input);
+    std::wstring normalize(const std::wstring& input);
 
 };
 
