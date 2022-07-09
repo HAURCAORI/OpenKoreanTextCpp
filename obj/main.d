@@ -134,14 +134,8 @@ obj/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/locale_facets.tcc \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
- /usr/include/c++/7/bits/istream.tcc include/OpenKoreanTextProcessor.hpp \
- include/KoreanNormalizer.hpp include/stdafx.h /usr/include/c++/7/vector \
- /usr/include/c++/7/bits/stl_construct.h \
- /usr/include/c++/7/bits/stl_uninitialized.h \
- /usr/include/c++/7/bits/stl_vector.h \
- /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
- /usr/include/c++/7/locale /usr/include/c++/7/bits/locale_facets_nonio.h \
- /usr/include/c++/7/ctime \
+ /usr/include/c++/7/bits/istream.tcc /usr/include/c++/7/locale \
+ /usr/include/c++/7/bits/locale_facets_nonio.h /usr/include/c++/7/ctime \
  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/7/bits/codecvt.h \
@@ -152,4 +146,11 @@ obj/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/utility /usr/include/c++/7/bits/stl_relops.h \
  /usr/include/c++/7/tuple /usr/include/c++/7/array \
  /usr/include/c++/7/bits/uses_allocator.h \
- /usr/include/c++/7/bits/invoke.h
+ /usr/include/c++/7/bits/invoke.h include/OpenKoreanTextProcessor.hpp \
+ include/KoreanNormalizer.hpp include/stdafx.h /usr/include/c++/7/vector \
+ /usr/include/c++/7/bits/stl_construct.h \
+ /usr/include/c++/7/bits/stl_uninitialized.h \
+ /usr/include/c++/7/bits/stl_vector.h \
+ /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
+ /usr/include/c++/7/chrono /usr/include/c++/7/ratio \
+ /usr/include/c++/7/limits /usr/include/c++/7/bits/parse_numbers.h

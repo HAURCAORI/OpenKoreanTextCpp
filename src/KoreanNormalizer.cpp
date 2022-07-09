@@ -11,13 +11,14 @@ namespace OpenKorean {
     const std::wregex WHITESPACE_REGEX = std::wregex(LR"(\s+)");
     const std::vector<std::wstring> CODA_N_EXCPETION = {L"은",L"는",L"운",L"인",L"텐",L"근",L"른",L"픈",L"닌",L"든",L"던"};
 
-    static stringMatchRet processNormalizationCandidate(stringMatchArg match) {
+    static wstringMatchRet processNormalizationCandidate(wstringMatchArg match) {
         std::wstring chunk = match[1];
         std::wstring toNormalize = match[2];
-        std::wcout << L"chunk" << chunk << std::endl << toNormalize << std::endl;
+        
+        //std::wstring normalizedChunk
         return chunk;
     }
-    static stringMatchRet normalizeKoreanChunk(stringMatchArg match) {
+    static wstringMatchRet normalizeKoreanChunk(wstringMatchArg match) {
         std::wstring output = replaceAll(match[0],KOREAN_TO_NORMALIZE_REGEX,processNormalizationCandidate);
         return output;
     }

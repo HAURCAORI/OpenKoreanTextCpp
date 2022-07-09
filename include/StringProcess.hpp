@@ -3,11 +3,11 @@
 #include <functional>
 
 
-typedef std::function<std::wstring(const std::wsmatch&)> stringMatchFunc;
-typedef stringMatchFunc::argument_type stringMatchArg;
-typedef stringMatchFunc::result_type stringMatchRet;
+typedef std::function<std::wstring(const std::wsmatch&)> wstringMatchFunc;
+typedef wstringMatchFunc::argument_type wstringMatchArg;
+typedef wstringMatchFunc::result_type wstringMatchRet;
 
-inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, stringMatchFunc func) {
+inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, wstringMatchFunc func) {
     std::wstring output;
     output.reserve(input.size());
 
@@ -22,12 +22,11 @@ inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, str
 }
 
 /*
-std::string replaceAll(std::string input, std::regex regex, stringMatchFunc func) {
-    std::string output;
-    std::smatch match;
+inline std::wstring replaceAll(std::wstring input, std::wregex regex, wstringMatchFunc func) {
+    std::wstring output;
+    std::wsmatch match;
     while(std::regex_search(input, match, regex)) {
         output += match.prefix().str();
-        std::cout << match[2] << std::endl;
         output += func(match);
         input = match.suffix().str();
     }

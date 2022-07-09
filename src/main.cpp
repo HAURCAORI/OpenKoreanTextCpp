@@ -1,24 +1,23 @@
 #include <iostream>
+#include <locale>
 #include "OpenKoreanTextProcessor.hpp"
 
 //#include <regex>
 //#include <cstddef>
-#include <locale>
+
+#include <chrono>
+#define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+#define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
 
 int main() {
-    OpenKorean::OpenKoreanTextProcessor m;
     std::locale::global(std::locale(""));
-    /*
-    std::wstring text = LR"(가ㅋㅋㅋㅋㅋ)";
-    std::wregex KOREAN_TO_NORMALIZE_REGEX(LR"(([가-힣]+)(ㅋ+|ㅎ+|[ㅠㅜ]+))");
-    std::wsmatch ma;
-    if(std::regex_search(text,ma,KOREAN_TO_NORMALIZE_REGEX)) {
-        std::wcout << text << std::endl;
-        std::wcout << LR"(([가-힣]+)(ㅋ+|ㅎ+|[ㅠㅜ]+))" << std::endl;
-        std::wcout << ma.str(1) << "/" << ma.str(2) << std::endl;
-    }
-    */
-    std::wstring text = LR"(가ㅋㅋㅋㅋㅋ)";
-    m.normalize(text);
+    OpenKorean::OpenKoreanTextProcessor m;
+
+
+    std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
+    BEGIN_CHRONO
+    for(int i = 0; i < 1000; i++)
+        m.normalize(text);
+    END_CHRONO
     return 0;
 }
