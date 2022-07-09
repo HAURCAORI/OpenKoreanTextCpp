@@ -1,27 +1,36 @@
-#include <map>
+#include <iostream>
+
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <KoreanPos.hpp>
+
+#define RESOURCE_DIR "./resources/"
+
+typedef std::unordered_set<std::wstring> Dictionary;
 
 class KoreanDictionaryProvider {
 private:
-    //readStreamByLine
-    //readWordFreqs
-    //readWordMap
+    std::unordered_map<std::wstring, float> koreanEntityFreq;
+    std::unordered_map<KoreanPos, Dictionary> koreanDictionary;
+    
+    Dictionary spanNouns;
+    Dictionary properNouncs;
+    std::unordered_map<std::wstring, Dictionary>nameDictionary;
+    //typoDictionaryByLength
+    //predicateStems
+
+
+    void readStreamByLine(std::string filename);
+    void readWordFreqs();
+    void readWordMap();
     
     //readWordAsSeq
     //readWordAsSet
-    //readWords
+    Dictionary readWords(std::vector<std::string> filenames);
     //readFileByLineFromResources
-    
-    //변수
-    //newCharArraySet
-    //koreanEntityFreq
-    //koreanDictionary
-    
-    //spanNouns
-    //properNouncs
-    //nameDictionary
-    //typoDictionaryByLength
-    //predicateStems
 public:
+    KoreanDictionaryProvider();
     //addWordsToDictionary
     //removeWordsToDictionary
 };
