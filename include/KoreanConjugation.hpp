@@ -1,5 +1,8 @@
 #include "Hangul.hpp"
 
+
+
+
 namespace OpenKorean {
 
 class KoreanConjugation {
@@ -24,7 +27,8 @@ private:
     static const std::vector<Char> PRE_EOMI_7;
 
     static const std::vector<Char> PRE_EOMI_RESPECT;
-    //PRE_EOMI_VOWEL
+
+    static const std::vector<Char> PRE_EOMI_VOWEL;
 public:
 
 };
