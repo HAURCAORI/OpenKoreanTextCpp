@@ -1,5 +1,5 @@
 obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
- /usr/include/stdc-predef.h include/KoreanDictionaryProvider.hpp \
+ /usr/include/stdc-predef.h include/ProcessLog.hpp \
  /usr/include/c++/7/iostream \
  /usr/include/x86_64-linux-gnu/c++/7/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/os_defines.h \
@@ -135,8 +135,8 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/bits/locale_facets.tcc \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
- /usr/include/c++/7/bits/istream.tcc /usr/include/c++/7/vector \
- /usr/include/c++/7/bits/stl_construct.h \
+ /usr/include/c++/7/bits/istream.tcc include/KoreanDictionaryProvider.hpp \
+ /usr/include/c++/7/vector /usr/include/c++/7/bits/stl_construct.h \
  /usr/include/c++/7/bits/stl_uninitialized.h \
  /usr/include/c++/7/bits/stl_vector.h \
  /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
@@ -198,4 +198,4 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
  /usr/include/c++/7/bits/regex_executor.h \
  /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/functional \
- /usr/include/c++/7/codecvt include/ProcessLog.hpp
+ /usr/include/c++/7/codecvt

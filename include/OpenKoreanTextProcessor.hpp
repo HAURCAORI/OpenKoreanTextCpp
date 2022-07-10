@@ -1,12 +1,15 @@
 #pragma once
-#include <KoreanNormalizer.hpp>
+#include "KoreanNormalizer.hpp"
+#include "KoreanDictionaryProvider.hpp"
 
 namespace OpenKorean {
 class OpenKoreanTextProcessor {
 private:
     KoreanNormalizer mKoreanNormalizer;
+    KoreanDictionaryProvider mKoreanDictionaryProvider;
 
 public:
+    OpenKoreanTextProcessor() = default;
     inline std::wstring normalize(std::wstring text) {
         return mKoreanNormalizer.normalize(text);
     }

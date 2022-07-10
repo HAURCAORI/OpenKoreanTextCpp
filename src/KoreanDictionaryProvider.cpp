@@ -1,6 +1,8 @@
+//#define ENABLE_LOG
+#include "ProcessLog.hpp"
 #include "KoreanDictionaryProvider.hpp"
 #include "StringProcess.hpp"
-#include "ProcessLog.hpp"
+
 /*
 #include <chrono>
 #define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
@@ -8,6 +10,7 @@
 */
 
 //#define TEST_SET
+
 
 using namespace OpenKorean;
 
@@ -112,9 +115,6 @@ void KoreanDictionaryProvider::load() {
 void KoreanDictionaryProvider::clear() {
     koreanEntityFreq.clear();
     koreanDictionary.clear();
-    spanNouns.clear();
-    properNouncs.clear();
-    nameDictionary.clear();
 }
 
 

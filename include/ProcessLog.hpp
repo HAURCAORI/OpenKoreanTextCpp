@@ -1,22 +1,22 @@
 #include <iostream>
 
 class ProcessLog {
-private:
-    static bool active = true;
 public:
     enum LogType {
         Process, Success, Fail, Error
     };
     static void log(const std::string& str) noexcept {
-        if(!active){ return; }
+        #ifdef ENABLE_LOG
         std::cout << str << std::endl;
+        #endif
     }
     static void logs(const std::string& str) noexcept {
-        if(!active){ return; }
+        #ifdef ENABLE_LOG
         std::cout << str;
+        #endif
     }
     static void log(LogType type, const std::string& str) noexcept {
-        if(!active){ return; }
+        #ifdef ENABLE_LOG
         switch(type) {
             case Process:
                 std::cout << "[Process] " << str << std::endl;
@@ -31,5 +31,6 @@ public:
                 std::cerr << "[Error] " << str << std::endl;
             break;
         }
+        #endif
     }
 };

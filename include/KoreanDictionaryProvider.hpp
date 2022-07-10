@@ -25,9 +25,6 @@ private:
     
     std::unordered_map<KoreanPos, Dictionary> koreanDictionary;
     std::unordered_map<std::wstring, float> koreanEntityFreq;
-    Dictionary spanNouns;
-    Dictionary properNouncs;
-    std::unordered_map<std::wstring, Dictionary>nameDictionary;
     //typoDictionaryByLength
     //predicateStems
 

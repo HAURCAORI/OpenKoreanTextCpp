@@ -1,7 +1,7 @@
 #include <iostream>
 #include <locale>
 #include "OpenKoreanTextProcessor.hpp"
-#include "KoreanDictionaryProvider.hpp"
+#include "Hangul.hpp"
 //#include <regex>
 //#include <cstddef>
 
@@ -17,6 +17,10 @@ int main() {
     std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
     m.normalize(text);
     */
+    wchar_t ch = L'가';
+    OpenKorean::HangulChar a = OpenKorean::Hangul::decomposeHangul(ch);
+    std::wcout << a.onset << "/" << a.vowel << "/" << a.coda << std::endl;
+    
     BEGIN_CHRONO
     OpenKorean::KoreanDictionaryProvider dic;
     END_CHRONO
