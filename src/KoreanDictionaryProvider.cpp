@@ -14,8 +14,6 @@
 
 using namespace OpenKorean;
 
-
-
 const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
 #ifdef TEST_SET
     {KoreanPos::Noun, {"noun/test.txt"}}
