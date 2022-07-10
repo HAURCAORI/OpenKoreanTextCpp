@@ -54,6 +54,7 @@ Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
         char buffer[50];
         while(fgets(buffer, 50, fp) != NULL) {
             temp.insert(convert_wstring(buffer));
+            std::wcout << convert_wstring(buffer) << std::endl;
         }
         fclose(fp);
         
