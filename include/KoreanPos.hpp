@@ -40,7 +40,7 @@
  *
  * Unkown: Could not parse the string.
  */
-
+namespace OpenKorean {
 enum class KoreanPos {
     // Word leved POS
     Noun, Verb, Adjective, 
@@ -56,7 +56,10 @@ enum class KoreanPos {
     // Functional POS
     Space, Others,
 
-    ProperNoun
+    ProperNoun,
+
+    //추가
+    SpamNouns, FamilyName, GivenName, FullName
 };
 
 static const std::set<KoreanPos> OtherPoses = {
@@ -132,5 +135,5 @@ case class KoreanPosTrie(curPos: KoreanPos, nextTrie: List[KoreanPosTrie], endin
     }
 */
 static const std::set<KoreanPos> Predicates = {KoreanPos::Verb, KoreanPos::Adjective};
-
+}
 #endif

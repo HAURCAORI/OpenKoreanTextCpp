@@ -8,9 +8,12 @@
 #define RESOURCE_DIR "./resources/"
 
 typedef std::unordered_set<std::wstring> Dictionary;
-
+typedef std::vector<std::string> FilePaths;
+namespace OpenKorean {
 class KoreanDictionaryProvider {
 private:
+    static const std::map<KoreanPos,FilePaths> DataPaths;
+    
     std::unordered_map<std::wstring, float> koreanEntityFreq;
     std::unordered_map<KoreanPos, Dictionary> koreanDictionary;
     
@@ -27,10 +30,12 @@ private:
     
     //readWordAsSeq
     //readWordAsSet
-    Dictionary readWords(std::vector<std::string> filenames);
+    Dictionary readWords(const std::vector<std::string>& filenames);
     //readFileByLineFromResources
+
 public:
     KoreanDictionaryProvider();
     //addWordsToDictionary
     //removeWordsToDictionary
 };
+}

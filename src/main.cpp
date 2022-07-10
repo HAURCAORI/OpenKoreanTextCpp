@@ -1,7 +1,7 @@
 #include <iostream>
 #include <locale>
 #include "OpenKoreanTextProcessor.hpp"
-
+#include "KoreanDictionaryProvider.hpp"
 //#include <regex>
 //#include <cstddef>
 
@@ -11,13 +11,13 @@
 
 int main() {
     std::locale::global(std::locale(""));
+    /*
     OpenKorean::OpenKoreanTextProcessor m;
 
-
     std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
-    BEGIN_CHRONO
-    for(int i = 0; i < 1000; i++)
-        m.normalize(text);
-    END_CHRONO
+    m.normalize(text);
+    */
+    OpenKorean::KoreanDictionaryProvider dic;
+    
     return 0;
 }
