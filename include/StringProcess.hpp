@@ -2,6 +2,8 @@
 #include <regex>
 #include <functional>
 
+#include <codecvt>
+#include <locale>
 
 typedef std::function<std::wstring(const std::wsmatch&)> wstringMatchFunc;
 typedef wstringMatchFunc::argument_type wstringMatchArg;
@@ -20,7 +22,10 @@ inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, wst
     }
     return output;
 }
-
+inline std::wstring convert_wstring(const std::string& str) {
+    std::wstring temp(str.begin(),str.end());
+    return temp;
+}
 /*
 inline std::wstring replaceAll(std::wstring input, std::wregex regex, wstringMatchFunc func) {
     std::wstring output;

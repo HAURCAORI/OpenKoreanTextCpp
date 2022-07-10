@@ -1,5 +1,5 @@
 #include "KoreanDictionaryProvider.hpp"
-
+#include "StringProcess.hpp"
 /*
 #include <chrono>
 #define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
@@ -9,7 +9,7 @@
 using namespace OpenKorean;
 
 const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
-    {KoreanPos::Noun, {"noun/nouns.txt"}}
+    {KoreanPos::Noun, {"noun/test.txt"}}
     /*
     {KoreanPos::Noun, {"noun/nouns.txt", "noun/entities.txt", "noun/spam.txt",
         "noun/names.txt", "noun/twitter.txt", "noun/lol.txt",
@@ -53,7 +53,7 @@ Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
         if(fp == NULL) { throw std::ios_base::failure("Error while opening file '" + *iterFile + "'."); }
         char buffer[50];
         while(fgets(buffer, 50, fp) != NULL) {
-            
+            temp.insert(convert_wstring(buffer));
         }
         fclose(fp);
         
@@ -107,6 +107,7 @@ void KoreanDictionaryProvider::clear() {
     properNouncs.clear();
     nameDictionary.clear();
 }
+
 
 KoreanDictionaryProvider::KoreanDictionaryProvider() {
     load();

@@ -153,6 +153,49 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/set /usr/include/c++/7/bits/stl_set.h \
  /usr/include/c++/7/bits/stl_multiset.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
- /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/c++/7/chrono \
- /usr/include/c++/7/ratio /usr/include/c++/7/limits \
- /usr/include/c++/7/ctime /usr/include/c++/7/bits/parse_numbers.h
+ /usr/include/x86_64-linux-gnu/bits/stat.h include/StringProcess.hpp \
+ /usr/include/c++/7/regex /usr/include/c++/7/algorithm \
+ /usr/include/c++/7/bits/stl_algo.h \
+ /usr/include/c++/7/bits/algorithmfwd.h \
+ /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
+ /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
+ /usr/include/c++/7/bitset /usr/include/c++/7/iterator \
+ /usr/include/c++/7/bits/stream_iterator.h /usr/include/c++/7/locale \
+ /usr/include/c++/7/bits/locale_facets_nonio.h /usr/include/c++/7/ctime \
+ /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/7/bits/codecvt.h \
+ /usr/include/c++/7/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/7/bits/locale_conv.h \
+ /usr/include/c++/7/bits/stringfwd.h /usr/include/c++/7/bits/allocator.h \
+ /usr/include/c++/7/bits/codecvt.h /usr/include/c++/7/bits/unique_ptr.h \
+ /usr/include/c++/7/memory /usr/include/c++/7/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/7/ext/concurrence.h \
+ /usr/include/c++/7/bits/unique_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr_base.h \
+ /usr/include/c++/7/bits/allocated_ptr.h \
+ /usr/include/c++/7/bits/refwrap.h \
+ /usr/include/c++/7/bits/shared_ptr_atomic.h \
+ /usr/include/c++/7/bits/atomic_base.h \
+ /usr/include/c++/7/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/7/backward/auto_ptr.h /usr/include/c++/7/sstream \
+ /usr/include/c++/7/bits/sstream.tcc /usr/include/c++/7/stack \
+ /usr/include/c++/7/deque /usr/include/c++/7/bits/stl_deque.h \
+ /usr/include/c++/7/bits/deque.tcc /usr/include/c++/7/bits/stl_stack.h \
+ /usr/include/c++/7/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+ /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+ /usr/include/c++/7/bits/std_function.h \
+ /usr/include/c++/7/bits/regex_constants.h \
+ /usr/include/c++/7/bits/regex_error.h \
+ /usr/include/c++/7/bits/regex_automaton.h \
+ /usr/include/c++/7/bits/regex_automaton.tcc \
+ /usr/include/c++/7/bits/regex_scanner.h \
+ /usr/include/c++/7/bits/regex_scanner.tcc \
+ /usr/include/c++/7/bits/regex_compiler.h \
+ /usr/include/c++/7/bits/regex_compiler.tcc \
+ /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
+ /usr/include/c++/7/bits/regex_executor.h \
+ /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/functional \
+ /usr/include/c++/7/codecvt

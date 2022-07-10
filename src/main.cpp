@@ -18,6 +18,11 @@ int main() {
     m.normalize(text);
     */
     OpenKorean::KoreanDictionaryProvider dic;
+    std::string ts("가가호호");
+    std::wstring ws(ts.begin(), ts.end());
+    std::cout << ts << std::endl;
+    std::wcout << ws << std::endl;
+    std::cout << dic.contain(OpenKorean::KoreanPos::Noun, L"가가호호") << std::endl;
     
     return 0;
 }

@@ -192,4 +192,4 @@ obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
  /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
  /usr/include/c++/7/bits/regex_executor.h \
  /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/functional \
- /usr/include/c++/7/iostream
+ /usr/include/c++/7/codecvt /usr/include/c++/7/iostream
