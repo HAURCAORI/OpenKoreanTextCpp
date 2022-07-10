@@ -3,6 +3,8 @@
 #include <map>
 #include <set>
 
+#define vecIndex(vec,c) (std::find(vec.begin(),vec.end(),c)-vec.begin())
+
 typedef wchar_t Char;
 namespace OpenKorean {
 struct HangulChar {
@@ -40,11 +42,14 @@ public:
     static bool hasCoda(Char c) {
         return ((c - HANGUL_BASE) % VOWEL_BASE > 0) ? true : false;
     }
-    static Char composeHangul(Char onset, Char vowel, Char coda = L' '); {
+    static Char composeHangul(Char onset, Char vowel, Char coda = L' ') {
         if(onset == L' ' || vowel == L' ') {
             return 0;
         }
-        //return (HANGUL_BASE +;
+        return (HANGUL_BASE + vecIndex(ONSET_LIST,onset) * ONSET_BASE + vecIndex(VOWEL_LIST,vowel) * VOWEL_BASE + vecIndex(CODA_LIST,coda));
+    }
+    static Char composeHangul(HangulChar hc) {
+        return composeHangul(hc.onset, hc.vowel, hc.coda);
     }
 
 };

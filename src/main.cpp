@@ -19,7 +19,8 @@ int main() {
     */
     wchar_t ch = L'가';
     OpenKorean::HangulChar a = OpenKorean::Hangul::decomposeHangul(ch);
-    std::wcout << a.onset << "/" << a.vowel << "/" << a.coda << std::endl;
+    std::wcout << OpenKorean::Hangul::composeHangul(L'ㄱ',L'ㅏ',L'ㄱ') << std::endl;
+    //std::wcout << a.onset << "/" << a.vowel << "/" << a.coda << std::endl;
     
     BEGIN_CHRONO
     OpenKorean::KoreanDictionaryProvider dic;
