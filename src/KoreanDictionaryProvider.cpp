@@ -35,14 +35,63 @@ const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
     {KoreanPos::FullName, {"noun/kpop.txt", "noun/foreign.txt", "noun/names.txt"}}
 };
 
-KoreanDictionaryProvider::KoreanDictionaryProvider() {
-    std::cout << "Dictionary FileCheck..." << std::endl;
+
+Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
+    Dictionary temp;
+    for(auto iterFile = filenames.begin(); iterFile != filenames.end(); ++iterFile) {
+        
+    }
+    //temp.insert();
+}
+
+
+bool KoreanDictionaryProvider::fileCheck() {
+    std::cout << "[Process] Dictionary FileCheck..." << std::endl;
     for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
         auto paths = iterType->second;
         for(auto iterPath = paths.begin(); iterPath != paths.end(); ++ iterPath) {
-            std::cout << *iterPath << std::endl;
+            std::cout << "file check : " << *iterPath << "...";
+            if(fileExist(RESOURCE_DIR + *iterPath)) {
+                std::cout << " OK" << std::endl;
+            }else {
+                std::cout << " FAIL" << std::endl;
+                return false;
+            }
         }
     }
+    std::cout << "[Success] Dictionary FileCheck" << std::endl;
+    return true;
+}
+
+void KoreanDictionaryProvider::load() {
+    if(isloaded) { clear(); }
+    if(!fileCheck()) {
+        std::cerr << "[Error] Fail to Load" << std::endl;
+        return;
+    }
+    try {
+        for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
+            KoreanPos kp = iterType->first;
+            auto paths = iterType->second;
+            //koreanDictionary[kp].insert(iterPath)
+        }
+    } catch (const std::ios_base::failure& ex) {
+        std::cerr << ex.what() << std::endl;
+        std::cerr << "[Error] Fail to Load" << std::endl;
+    }
+    isloaded = true;
+}
+
+void KoreanDictionaryProvider::clear() {
+    koreanEntityFreq.clear();
+    koreanDictionary.clear();
+    spanNouns.clear();
+    properNouncs.clear();
+    nameDictionary.clear();
+}
+
+KoreanDictionaryProvider::KoreanDictionaryProvider() {
+    load();
 }
 
 Dictionary KoreanDictionaryProvider::readWords(const std::vector<std::string>& filenames) {

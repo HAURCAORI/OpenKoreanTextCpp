@@ -161,6 +161,8 @@ obj/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/map /usr/include/c++/7/bits/stl_tree.h \
  /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/bits/stl_multimap.h \
  /usr/include/c++/7/set /usr/include/c++/7/bits/stl_set.h \
- /usr/include/c++/7/bits/stl_multiset.h /usr/include/c++/7/chrono \
+ /usr/include/c++/7/bits/stl_multiset.h \
+ /usr/include/x86_64-linux-gnu/sys/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/c++/7/chrono \
  /usr/include/c++/7/ratio /usr/include/c++/7/limits \
  /usr/include/c++/7/bits/parse_numbers.h
