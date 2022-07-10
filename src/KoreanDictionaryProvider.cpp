@@ -1,16 +1,22 @@
 #include "KoreanDictionaryProvider.hpp"
 #include "StringProcess.hpp"
+#include "ProcessLog.hpp"
 /*
 #include <chrono>
 #define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 #define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
 */
 
+//#define TEST_SET
+
 using namespace OpenKorean;
 
+
+
 const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
+#ifdef TEST_SET
     {KoreanPos::Noun, {"noun/test.txt"}}
-    /*
+#else   
     {KoreanPos::Noun, {"noun/nouns.txt", "noun/entities.txt", "noun/spam.txt",
         "noun/names.txt", "noun/twitter.txt", "noun/lol.txt",
         "noun/slangs.txt", "noun/company_names.txt",
@@ -40,7 +46,7 @@ const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
     {KoreanPos::FamilyName, {"substantives/family_names.txt"}},
     {KoreanPos::GivenName, {"substantives/given_names.txt"}},
     {KoreanPos::FullName, {"noun/kpop.txt", "noun/foreign.txt", "noun/names.txt"}}
-    */
+#endif
 };
 
 
@@ -53,50 +59,52 @@ Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
         if(fp == NULL) { throw std::ios_base::failure("Error while opening file '" + *iterFile + "'."); }
         char buffer[50];
         while(fgets(buffer, 50, fp) != NULL) {
-            temp.insert(convert_wstring(buffer));
-            std::wcout << convert_wstring(buffer) << std::endl;
+            std::string str(buffer);
+            str.pop_back();
+            temp.insert(convert_wstring(str));
         }
         fclose(fp);
         
     }
-    //temp.insert();
     return temp;
 }
 
 
 bool KoreanDictionaryProvider::fileCheck() {
-    std::cout << "[Process] Dictionary FileCheck..." << std::endl;
+    ProcessLog::log(ProcessLog::Process,"Dictionary FileCheck...");
     for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
         auto paths = iterType->second;
         for(auto iterPath = paths.begin(); iterPath != paths.end(); ++ iterPath) {
-            std::cout << "file check : " << *iterPath << "...";
+            ProcessLog::logs("file check : " + *iterPath + "...");
             if(fileExist(RESOURCE_DIR + *iterPath)) {
-                std::cout << " OK" << std::endl;
+                ProcessLog::log(" OK");
             }else {
-                std::cout << " FAIL" << std::endl;
+                ProcessLog::log(" FAIL");
                 return false;
             }
         }
     }
-    std::cout << "[Success] Dictionary FileCheck" << std::endl;
+    ProcessLog::log(ProcessLog::Success, "Dictionary FileCheck");
     return true;
 }
 
 void KoreanDictionaryProvider::load() {
     if(isloaded) { clear(); }
     if(!fileCheck()) {
-        std::cerr << "[Error] Fail to Load" << std::endl;
+        ProcessLog::log(ProcessLog::Error, "Fail to Load");
         return;
     }
     try {
+        ProcessLog::log(ProcessLog::Process, "Loading...");
         for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
-            //BEGIN_CHRONO
+            ProcessLog::logs("loading : " + TagString.find(iterType->first)->second + "...");
             koreanDictionary[iterType->first] = readWords(iterType->second);
-            //END_CHRONO
+            ProcessLog::log(" OK");
         }
+        ProcessLog::log(ProcessLog::Success, "Loading");
     } catch (const std::ios_base::failure& ex) {
         std::cerr << ex.what() << std::endl;
-        std::cerr << "[Error] Fail to Load" << std::endl;
+        ProcessLog::log(ProcessLog::Error, "[Error] Fail to Load");
     }
     isloaded = true;
 }

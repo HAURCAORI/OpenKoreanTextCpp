@@ -40,6 +40,9 @@
  *
  * Unkown: Could not parse the string.
  */
+
+#define cmap(arg) {KoreanPos::arg, #arg}
+
 namespace OpenKorean {
 enum class KoreanPos {
     // Word leved POS
@@ -68,7 +71,16 @@ static const std::set<KoreanPos> OtherPoses = {
     KoreanPos::Email, KoreanPos::URL, KoreanPos::CashTag
 };
 
+static const std::map<KoreanPos,std::string> TagString = {
+    cmap(Noun), cmap(Verb), cmap(Adjective), cmap(Adverb), cmap(Determiner), cmap(Exclamation), cmap(Josa),
+    cmap(Eomi), cmap(PreEomi), cmap(Conjunction), cmap(Modifier), cmap(VerbPrefix), cmap(Suffix), cmap(Unknown),
 
+    cmap(Korean), cmap(Foreign), cmap(Number), cmap(KoreanParticle), cmap(Alpha),
+    cmap(Punctuation), cmap(Hashtag), cmap(ScreenName), cmap(Email), cmap(URL), cmap(CashTag),
+
+    cmap(Space), cmap(Others), cmap(ProperNoun),
+    cmap(SpamNouns), cmap(FamilyName), cmap(GivenName), cmap(FullName)
+};
 
 static const std::map<char, KoreanPos> shortCut = {
     {'N',KoreanPos::Noun},
