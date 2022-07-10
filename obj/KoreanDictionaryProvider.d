@@ -153,8 +153,6 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/set /usr/include/c++/7/bits/stl_set.h \
  /usr/include/c++/7/bits/stl_multiset.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
- /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/c++/7/fstream \
- /usr/include/c++/7/bits/codecvt.h \
- /usr/include/x86_64-linux-gnu/c++/7/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/7/bits/c++io.h \
- /usr/include/c++/7/bits/fstream.tcc
+ /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/c++/7/chrono \
+ /usr/include/c++/7/ratio /usr/include/c++/7/limits \
+ /usr/include/c++/7/ctime /usr/include/c++/7/bits/parse_numbers.h

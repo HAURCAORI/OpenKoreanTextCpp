@@ -1,9 +1,16 @@
 #include "KoreanDictionaryProvider.hpp"
-#include <fstream>
+
+/*
+#include <chrono>
+#define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+#define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
+*/
 
 using namespace OpenKorean;
 
 const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
+    {KoreanPos::Noun, {"noun/nouns.txt"}}
+    /*
     {KoreanPos::Noun, {"noun/nouns.txt", "noun/entities.txt", "noun/spam.txt",
         "noun/names.txt", "noun/twitter.txt", "noun/lol.txt",
         "noun/slangs.txt", "noun/company_names.txt",
@@ -33,15 +40,26 @@ const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
     {KoreanPos::FamilyName, {"substantives/family_names.txt"}},
     {KoreanPos::GivenName, {"substantives/given_names.txt"}},
     {KoreanPos::FullName, {"noun/kpop.txt", "noun/foreign.txt", "noun/names.txt"}}
+    */
 };
 
 
 Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
     Dictionary temp;
     for(auto iterFile = filenames.begin(); iterFile != filenames.end(); ++iterFile) {
+        std::string path = RESOURCE_DIR + *iterFile;
+        FILE *fp = fopen(path.c_str(), "r");
+
+        if(fp == NULL) { throw std::ios_base::failure("Error while opening file '" + *iterFile + "'."); }
+        char buffer[50];
+        while(fgets(buffer, 50, fp) != NULL) {
+            
+        }
+        fclose(fp);
         
     }
     //temp.insert();
+    return temp;
 }
 
 
@@ -71,9 +89,9 @@ void KoreanDictionaryProvider::load() {
     }
     try {
         for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
-            KoreanPos kp = iterType->first;
-            auto paths = iterType->second;
-            //koreanDictionary[kp].insert(iterPath)
+            //BEGIN_CHRONO
+            koreanDictionary[iterType->first] = readWords(iterType->second);
+            //END_CHRONO
         }
     } catch (const std::ios_base::failure& ex) {
         std::cerr << ex.what() << std::endl;
@@ -92,14 +110,4 @@ void KoreanDictionaryProvider::clear() {
 
 KoreanDictionaryProvider::KoreanDictionaryProvider() {
     load();
-}
-
-Dictionary KoreanDictionaryProvider::readWords(const std::vector<std::string>& filenames) {
-    for(auto it = filenames.begin(); it != filenames.end(); ++it) {
-        std::wifstream fileData;
-        fileData.open(*it);
-        if(fileData.fail()) {
-            throw std::ios_base::failure("Error while opening file '" + *it + "'.");
-        }
-    }
 }
