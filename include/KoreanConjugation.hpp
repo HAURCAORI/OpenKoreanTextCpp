@@ -1,8 +1,5 @@
 #include "Hangul.hpp"
 
-
-
-
 namespace OpenKorean {
 
 class KoreanConjugation {

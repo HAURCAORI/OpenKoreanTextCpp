@@ -1,7 +1,7 @@
 #include <iostream>
 #include <locale>
 #include "OpenKoreanTextProcessor.hpp"
-#include "Hangul.hpp"
+#include "KoreanConjugation.hpp"
 //#include <regex>
 //#include <cstddef>
 
