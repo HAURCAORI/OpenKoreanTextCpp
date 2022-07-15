@@ -1,9 +1,24 @@
+#pragma once
 #include "Hangul.hpp"
+#include <unordered_set>
 
 namespace OpenKorean {
 
+typedef std::unordered_set<std::wstring> Dictionary;
+
+
+
 class KoreanConjugation {
 private:
+    struct ExpandedWord {
+        Char init;
+        Char lastChar;
+        std::wstring lastCharString;
+        HangulChar lastCharDecomposed;
+        std::vector<std::wstring> expandedLast;
+        ExpandedWord(const std::wstring& str) : init(*str.cbegin()), lastChar(*str.cend()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
+    };
+
     static const std::vector<Char> CODAS_COMMON;
     static const std::vector<Char> CODAS_FOR_CONTRACTION;
     static const std::vector<Char> CODAS_NO_PAST;
@@ -26,6 +41,8 @@ private:
     static const std::vector<Char> PRE_EOMI_RESPECT;
 
     static const std::vector<Char> PRE_EOMI_VOWEL;
+    static void expanding(ExpandedWord& expanded);
+
 public:
     static std::vector<std::wstring> addPreEomi(Char lastChar, std::vector<Char> charsToAdd) {
         std::vector<std::wstring> ret;
@@ -36,5 +53,22 @@ public:
         }
         return ret;
     }
+    
+    /*
+    protected[processor] def conjugatePredicatesToCharArraySet(words: Set[String], isAdjective: Boolean = false): CharArraySet = {
+    val expanded: Set[String] = conjugatePredicated(words, isAdjective)
+
+    val newSet = newCharArraySet
+    newSet.addAll(expanded.asJava)
+    newSet
+    }*/
+
+    static std::vector<std::wstring> conjugatePredicated(std::wstring words, bool isAdjective) {
+        ExpandedWord expanded(words);
+        expanding(expanded);
+        std::vector<std::wstring> ret;
+        return ret;
+    }
+
 };
 }

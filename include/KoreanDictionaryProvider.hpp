@@ -1,9 +1,11 @@
+#pragma once
 #include <iostream>
 
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 #include <KoreanPos.hpp>
+#include <KoreanConjugation.hpp>
 
 // files exit process 
 #if defined(__linux__) || defined(__unix__)
@@ -16,7 +18,6 @@
 
 #define RESOURCE_DIR "./resources/"
 
-typedef std::unordered_set<std::wstring> Dictionary;
 typedef std::vector<std::string> FilePaths;
 namespace OpenKorean {
 class KoreanDictionaryProvider {

@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <algorithm>
 #include <map>
@@ -6,11 +7,16 @@
 #define vecIndex(vec,c) (std::find(vec.begin(),vec.end(),c)-vec.begin())
 
 typedef wchar_t Char;
+
 namespace OpenKorean {
 struct HangulChar {
     Char onset;
     Char vowel;
     Char coda;
+    HangulChar(Char _onset, Char _vowel, Char _coda) : onset(_onset), vowel(_vowel), coda(_coda) {} 
+    bool compare(const HangulChar& rhs) {
+        return !((rhs.onset != NULL)&&(rhs.onset != this->onset));
+    }
 };
 
 struct DoubleCoda {
@@ -51,6 +57,5 @@ public:
     static Char composeHangul(HangulChar hc) {
         return composeHangul(hc.onset, hc.vowel, hc.coda);
     }
-
 };
 }

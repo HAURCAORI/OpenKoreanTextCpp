@@ -10,8 +10,14 @@
 #define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
 
 void test_conjugation() {
+    std::wcout << L"test1" << std::endl;
     auto temp = OpenKorean::KoreanConjugation::addPreEomi(L'가', {L'앗',L'었'});
     for(auto it = temp.begin(); it != temp.end(); ++it) {
+        std::wcout << *it << std::endl;
+    }
+    std::wcout << L"test2" << std::endl;
+    auto temp2 = OpenKorean::KoreanConjugation::conjugatePredicated(L"가",true);
+    for(auto it = temp2.begin(); it != temp2.end(); ++it) {
         std::wcout << *it << std::endl;
     }
 }

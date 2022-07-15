@@ -1,5 +1,5 @@
 #include "KoreanConjugation.hpp"
-
+#include <iostream>
 std::vector<Char> operator*(const std::vector<Char>& lhs, const std::vector<Char>& rhs) {
     std::vector<Char> temp;
     temp.insert(temp.begin(), lhs.begin(), lhs.end());
@@ -8,6 +8,7 @@ std::vector<Char> operator*(const std::vector<Char>& lhs, const std::vector<Char
 }
 
 using namespace OpenKorean;
+
 
 const std::vector<Char> KoreanConjugation::CODAS_COMMON = {L'ㅂ', L'ㅆ', L'ㄹ', L'ㄴ', L'ㅁ'};
 const std::vector<Char> KoreanConjugation::CODAS_FOR_CONTRACTION = {L'ㅆ', L'ㄹ', L'ㅁ'};
@@ -37,3 +38,7 @@ const std::vector<Char> KoreanConjugation::PRE_EOMI_7 = { L'운' };
 const std::vector<Char> KoreanConjugation::PRE_EOMI_RESPECT = { L'세', L'시', L'실', L'신', L'셔', L'습', L'셨', L'십' };
 
 const std::vector<Char> KoreanConjugation::PRE_EOMI_VOWEL = KoreanConjugation::PRE_EOMI_COMMON * KoreanConjugation::PRE_EOMI_2 * KoreanConjugation::PRE_EOMI_3 * KoreanConjugation::PRE_EOMI_RESPECT;
+
+void KoreanConjugation::expanding(ExpandedWord& expanded) {
+    expanded.lastCharDecomposed == HangulChar{NULL,L'ㅏ',' '};
+}
