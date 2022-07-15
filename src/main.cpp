@@ -9,6 +9,13 @@
 #define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 #define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
 
+void test_conjugation() {
+    auto temp = OpenKorean::KoreanConjugation::addPreEomi(L'가', {L'앗',L'었'});
+    for(auto it = temp.begin(); it != temp.end(); ++it) {
+        std::wcout << *it << std::endl;
+    }
+}
+
 int main() {
     std::locale::global(std::locale(""));
     /*
@@ -17,6 +24,7 @@ int main() {
     std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
     m.normalize(text);
     */
+    test_conjugation();
 
     BEGIN_CHRONO
     OpenKorean::KoreanDictionaryProvider dic;

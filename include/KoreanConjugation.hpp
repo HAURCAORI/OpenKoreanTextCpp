@@ -27,6 +27,14 @@ private:
 
     static const std::vector<Char> PRE_EOMI_VOWEL;
 public:
-
+    static std::vector<std::wstring> addPreEomi(Char lastChar, std::vector<Char> charsToAdd) {
+        std::vector<std::wstring> ret;
+        for(auto it = charsToAdd.begin(); it != charsToAdd.end(); ++it) {
+            std::wstring ws(1, lastChar);
+            ws.append(1,*it);
+            ret.push_back(ws);
+        }
+        return ret;
+    }
 };
 }
