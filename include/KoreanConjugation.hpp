@@ -9,16 +9,14 @@ namespace OpenKorean {
 typedef std::unordered_set<std::wstring> Dictionary;
 
 
-
 class KoreanConjugation {
 private:
     struct ExpandedWord {
-        Char init;
+        std::wstring init;
         Char lastChar;
         std::wstring lastCharString;
         HangulChar lastCharDecomposed;
-        std::vector<std::wstring> expandedLast;
-        ExpandedWord(const std::wstring& str) : init(str.front()), lastChar(str.back()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
+        ExpandedWord(const std::wstring& str) : init(getInit(str)), lastChar(str.back()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
     };
 
     static const std::vector<Char> CODAS_COMMON;
@@ -43,7 +41,8 @@ private:
     static const std::vector<Char> PRE_EOMI_RESPECT;
 
     static const std::vector<Char> PRE_EOMI_VOWEL;
-    static void expanding(ExpandedWord& expanded, bool isAdjective);
+    static std::vector<std::wstring> expanding(const ExpandedWord& expanded, bool isAdjective);
+    static std::vector<std::wstring> expanding_irregular(const ExpandedWord& expanded);
 
     static std::vector<std::wstring> map(const std::vector<Char>& chars, const std::function<std::wstring(Char)>& lambda) {
         std::vector<std::wstring> ret;
@@ -74,12 +73,6 @@ public:
     newSet
     }*/
 
-    static std::vector<std::wstring> conjugatePredicated(std::wstring words, bool isAdjective) {
-        ExpandedWord expanded(words);
-        expanding(expanded, isAdjective);
-        std::vector<std::wstring> ret;
-        return expanded.expandedLast;
-    }
-
+    static std::vector<std::wstring> conjugatePredicated(std::wstring words, bool isAdjective);
 };
 }

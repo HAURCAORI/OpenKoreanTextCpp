@@ -21,6 +21,20 @@ inline std::vector<std::wstring> toStringVector(std::wstring s) {
     return { s };
 }
 
+inline std::wstring getInit(std::wstring s) {
+    return (s.length() == 0) ? s : s.substr(0, s.length() - 1);
+}
+
+inline void prepend(std::wstring& t, const std::wstring& s) {
+    t = t.insert(0,s);
+}
+
+inline void prependVector(std::vector<std::wstring>& vec, const std::wstring& s) {
+    for(auto& el : vec) {
+        el = el.insert(0,s);
+    }
+}
+
 namespace OpenKorean {
 
 struct HangulChar {
@@ -28,7 +42,7 @@ struct HangulChar {
     Char vowel;
     Char coda;
     HangulChar(Char _onset, Char _vowel, Char _coda) : onset(_onset), vowel(_vowel), coda(_coda) {} 
-    bool compare(const HangulChar& rhs) {
+    bool compare(const HangulChar& rhs) const {
         return ((rhs.onset == NullChar)||(rhs.onset == this->onset)) && ((rhs.vowel == NullChar)||(rhs.vowel == this->vowel)) && ((rhs.coda == NullChar)||(rhs.coda == this->coda));
     }
 };
