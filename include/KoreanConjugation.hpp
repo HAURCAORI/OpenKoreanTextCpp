@@ -8,17 +8,16 @@ namespace OpenKorean {
 
 typedef std::unordered_set<std::wstring> Dictionary;
 
+struct ExpandedWord {
+    std::wstring init;
+    Char lastChar;
+    std::wstring lastCharString;
+    HangulChar lastCharDecomposed;
+    ExpandedWord(const std::wstring& str) : init(getInit(str)), lastChar(str.back()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
+};
 
 class KoreanConjugation {
 private:
-    struct ExpandedWord {
-        std::wstring init;
-        Char lastChar;
-        std::wstring lastCharString;
-        HangulChar lastCharDecomposed;
-        ExpandedWord(const std::wstring& str) : init(getInit(str)), lastChar(str.back()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
-    };
-
     static const std::vector<Char> CODAS_COMMON;
     static const std::vector<Char> CODAS_FOR_CONTRACTION;
     static const std::vector<Char> CODAS_NO_PAST;

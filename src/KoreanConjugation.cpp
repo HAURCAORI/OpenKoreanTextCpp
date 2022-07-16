@@ -11,7 +11,6 @@ std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
 
 using namespace OpenKorean;
 
-
 const std::vector<Char> KoreanConjugation::CODAS_COMMON = {L'ㅂ', L'ㅆ', L'ㄹ', L'ㄴ', L'ㅁ'};
 const std::vector<Char> KoreanConjugation::CODAS_FOR_CONTRACTION = {L'ㅆ', L'ㄹ', L'ㅁ'};
 const std::vector<Char> KoreanConjugation::CODAS_NO_PAST = {L'ㅂ', L'ㄹ', L'ㄴ', L'ㅁ'};
@@ -323,7 +322,7 @@ std::vector<std::wstring> KoreanConjugation::expanding_irregular(const ExpandedW
 }
 
 std::vector<std::wstring> KoreanConjugation::conjugatePredicated(std::wstring words, bool isAdjective) {
-    ExpandedWord expanded(words);
+    const ExpandedWord expanded(words);
     std::vector<std::wstring> expandedLast = expanding(expanded, isAdjective);
     std::vector<std::wstring> irregularExpansion = expanding_irregular(expanded);
     prependVector(expandedLast, expanded.init);
