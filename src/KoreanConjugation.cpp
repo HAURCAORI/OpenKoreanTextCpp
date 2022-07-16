@@ -194,4 +194,98 @@ void KoreanConjugation::expanding(ExpandedWord& expanded, bool isAdjective) {
             return;
         }
     }
+
+    // 낫다, 빼앗다
+    if(lastChar.compare(HangulChar(NullChar, L'ㅏ', L'ㅅ'))) {
+        Char o = lastChar.onset;
+        expanded.expandedLast = addPreEomi(expanded.lastChar, PRE_EOMI_2 * PRE_EOMI_6)
+        * addPreEomi(Hangul::composeHangul(o, L'ㅏ'), PRE_EOMI_4 * PRE_EOMI_5)
+        * toStringVector(expanded.lastChar);
+        return;
+    }
+
+    // 묻다
+    if(lastChar.compare(HangulChar(L'ㅁ', L'ㅜ', L'ㄷ'))) {
+        expanded.expandedLast = addPreEomi(expanded.lastChar, PRE_EOMI_2 * PRE_EOMI_6)
+        * toStringVector(Hangul::composeHangul(L'ㅁ', L'ㅜ', L'ㄹ'))
+        * toStringVector(expanded.lastChar);
+        return;
+    }
+
+    // 붇다
+    if(lastChar.compare(HangulChar(NullChar, L'ㅜ', L'ㄷ'))) {
+        Char o = lastChar.onset;
+        expanded.expandedLast = addPreEomi(expanded.lastChar, PRE_EOMI_2 * PRE_EOMI_6)
+        * addPreEomi(Hangul::composeHangul(o, L'ㅜ'), PRE_EOMI_1_2 * PRE_EOMI_1_4 * PRE_EOMI_4 * PRE_EOMI_5)
+        * toStringVector(expanded.lastChar);
+        return;
+    }
+
+    // 눕다
+    if(lastChar.compare(HangulChar(NullChar, L'ㅜ', L'ㅂ'))) {
+        Char o = lastChar.onset;
+        expanded.expandedLast = addPreEomi(expanded.lastChar, PRE_EOMI_2 * PRE_EOMI_6)
+        * addPreEomi(Hangul::composeHangul(o, L'ㅜ'), PRE_EOMI_1_4 * PRE_EOMI_4 * PRE_EOMI_5)
+        * toStringVector(expanded.lastChar);
+        return;
+    }
+
+    // 간지럽다, 갑작스럽다 -> 갑작스런
+    if(lastChar.compare(HangulChar(NullChar, L'ㅓ', L'ㅂ'))) {
+        if(isAdjective) {
+            Char o = lastChar.onset;
+            expanded.expandedLast = addPreEomi(Hangul::composeHangul(o, L'ㅓ'), PRE_EOMI_1_4 * PRE_EOMI_7)
+            * toStringVector(Hangul::composeHangul(o, L'ㅓ'))
+            * toStringVector(Hangul::composeHangul(o, L'ㅓ', L'ㄴ'))
+            * toStringVector(expanded.lastChar);
+            return;
+        }
+    }
+
+    // 아름답다, 가볍다, 덥다, 간지럽다
+    if(lastChar.compare(HangulChar(NullChar, NullChar, L'ㅂ'))) {
+        if(isAdjective) {
+            Char o = lastChar.onset;
+            Char v = lastChar.vowel;
+            expanded.expandedLast = addPreEomi(Hangul::composeHangul(o, v, L' '), PRE_EOMI_1_4 * PRE_EOMI_7)
+            * toStringVector(Hangul::composeHangul(o, v, L' '))
+            * toStringVector(expanded.lastChar);
+            return;
+        }
+    }
+
+    // 놓다
+    if(lastChar.compare(HangulChar(NullChar, L'ㅗ', L'ㅎ'))) {
+        Char o = lastChar.onset;
+        const std::vector<std::wstring> common_map = map(CODAS_COMMON,
+            [&](Char c) { 
+            return toString(Hangul::composeHangul(o, L'ㅗ', c));
+        });
+        expanded.expandedLast = addPreEomi(expanded.lastChar, PRE_EOMI_2 * PRE_EOMI_6) * common_map
+            * toStringVector(Hangul::composeHangul(o, L'ㅘ'))
+            * toStringVector(Hangul::composeHangul(o, L'ㅗ'))
+            * toStringVector(expanded.lastChar);
+        return;
+    }
+
+    // 파랗다, 퍼렇다, 어떻다
+    if(lastChar.compare(HangulChar(NullChar, NullChar, L'ㅎ'))) {
+        if(isAdjective) {
+            Char o = lastChar.onset;
+            Char v = lastChar.vowel;
+            const std::vector<std::wstring> common_map = map(CODAS_COMMON,
+                [&](Char c) { 
+                return toString(Hangul::composeHangul(o, v, c));
+            });
+            const std::vector<std::wstring> contraction_map = map(CODAS_FOR_CONTRACTION,
+                [&](Char c) { 
+                return toString(Hangul::composeHangul(o, L'ㅐ', c));
+            });
+            expanded.expandedLast = common_map * contraction_map
+            * toStringVector(Hangul::composeHangul(o, L'ㅐ'))
+            * toStringVector(Hangul::composeHangul(o, v))
+            * toStringVector(expanded.lastChar);
+            return;
+        }
+    }
 }
