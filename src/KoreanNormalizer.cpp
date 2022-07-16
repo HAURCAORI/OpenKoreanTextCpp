@@ -1,6 +1,5 @@
 #include "KoreanNormalizer.hpp"
 #include "StringProcess.hpp"
-#include "iostream"
 
 
 using namespace OpenKorean;

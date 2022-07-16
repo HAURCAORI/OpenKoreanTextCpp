@@ -72,6 +72,6 @@ public:
     newSet
     }*/
 
-    static std::vector<std::wstring> conjugatePredicated(std::wstring words, bool isAdjective);
+    static Dictionary conjugatePredicated(const std::wstring& words, bool isAdjective = false);
 };
 }

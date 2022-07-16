@@ -1,6 +1,4 @@
-#ifndef _KOREAN_POS_HPP_
-#define _KOREAN_POS_HPP_
-
+#pragma once
 #include <map>
 #include <set>
 /**
@@ -148,4 +146,3 @@ case class KoreanPosTrie(curPos: KoreanPos, nextTrie: List[KoreanPosTrie], endin
 */
 static const std::set<KoreanPos> Predicates = {KoreanPos::Verb, KoreanPos::Adjective};
 }
-#endif

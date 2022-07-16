@@ -16,7 +16,7 @@ void test_conjugation() {
         std::wcout << *it << std::endl;
     }
     std::wcout << L"test2" << std::endl;
-    auto temp2 = OpenKorean::KoreanConjugation::conjugatePredicated(L"하",true);
+    auto temp2 = OpenKorean::KoreanConjugation::conjugatePredicated(L"아니",true);
     for(auto it = temp2.begin(); it != temp2.end(); ++it) {
         std::wcout << *it << std::endl;
     }
@@ -30,7 +30,7 @@ int main() {
     std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
     m.normalize(text);
     */
-    test_conjugation();
+    //test_conjugation();
 
     BEGIN_CHRONO
     OpenKorean::KoreanDictionaryProvider dic;

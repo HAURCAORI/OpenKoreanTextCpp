@@ -321,12 +321,15 @@ std::vector<std::wstring> KoreanConjugation::expanding_irregular(const ExpandedW
     }
 }
 
-std::vector<std::wstring> KoreanConjugation::conjugatePredicated(std::wstring words, bool isAdjective) {
+Dictionary KoreanConjugation::conjugatePredicated(const std::wstring& words, bool isAdjective) {
     const ExpandedWord expanded(words);
-    std::vector<std::wstring> expandedLast = expanding(expanded, isAdjective);
-    std::vector<std::wstring> irregularExpansion = expanding_irregular(expanded);
-    prependVector(expandedLast, expanded.init);
-    std::vector<std::wstring> ret = expandedLast * irregularExpansion;
-    
+    std::vector<std::wstring> temp = prependVector_s(expanding(expanded, isAdjective), expanded.init) * expanding_irregular(expanded);
+    std::unordered_set<std::wstring> ret(temp.begin(), temp.end());
+    if(!isAdjective) {
+        ret.erase(L"아니");
+        ret.erase(L"입");
+        ret.erase(L"입니");
+        ret.erase(L"나는");
+    }
     return ret;
 }

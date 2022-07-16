@@ -35,6 +35,14 @@ inline void prependVector(std::vector<std::wstring>& vec, const std::wstring& s)
     }
 }
 
+inline std::vector<std::wstring> prependVector_s(const std::vector<std::wstring>& vec, const std::wstring& s) {
+    std::vector<std::wstring> ret(vec.begin(), vec.end());
+    for(auto& el : ret) {
+        el = el.insert(0,s);
+    }
+    return ret;
+}
+
 namespace OpenKorean {
 
 struct HangulChar {

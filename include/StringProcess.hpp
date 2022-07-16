@@ -26,6 +26,8 @@ inline std::wstring convert_wstring(const std::string& str) {
     std::wstring temp(str.begin(),str.end());
     return temp;
 }
+
+
 /*
 inline std::wstring replaceAll(std::wstring input, std::wregex regex, wstringMatchFunc func) {
     std::wstring output;
