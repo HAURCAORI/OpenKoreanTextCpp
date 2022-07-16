@@ -9,6 +9,9 @@
 
 typedef wchar_t Char;
 
+inline std::wstring toString(Char c) {
+    return std::wstring(1,c);
+}
 
 namespace OpenKorean {
 

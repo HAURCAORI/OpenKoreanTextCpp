@@ -1,6 +1,8 @@
 #pragma once
 #include "Hangul.hpp"
 #include <unordered_set>
+#include <functional>
+
 
 namespace OpenKorean {
 
@@ -16,7 +18,7 @@ private:
         std::wstring lastCharString;
         HangulChar lastCharDecomposed;
         std::vector<std::wstring> expandedLast;
-        ExpandedWord(const std::wstring& str) : init(*str.cbegin()), lastChar(*str.cend()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
+        ExpandedWord(const std::wstring& str) : init(str.front()), lastChar(str.back()), lastCharString(1,lastChar), lastCharDecomposed(Hangul::decomposeHangul(lastChar)) {}
     };
 
     static const std::vector<Char> CODAS_COMMON;
@@ -43,8 +45,7 @@ private:
     static const std::vector<Char> PRE_EOMI_VOWEL;
     static void expanding(ExpandedWord& expanded, bool isAdjective);
 
-    template<typename F>
-    static std::vector<std::wstring> map(const std::vector<Char>& chars, F lambda) {
+    static std::vector<std::wstring> map(const std::vector<Char>& chars, const std::function<std::wstring(Char)>& lambda) {
         std::vector<std::wstring> ret;
         ret.reserve(chars.size());
         for(auto it = chars.begin(); it != chars.end(); ++it) {
@@ -77,7 +78,7 @@ public:
         ExpandedWord expanded(words);
         expanding(expanded, isAdjective);
         std::vector<std::wstring> ret;
-        return ret;
+        return expanded.expandedLast;
     }
 
 };

@@ -157,6 +157,8 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/bits/algorithmfwd.h \
  /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
  /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
+ /usr/include/c++/7/functional /usr/include/c++/7/bits/std_function.h \
+ /usr/include/c++/7/bits/refwrap.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
  /usr/include/x86_64-linux-gnu/bits/stat.h include/StringProcess.hpp \
  /usr/include/c++/7/regex /usr/include/c++/7/bitset \
@@ -176,7 +178,6 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/bits/shared_ptr.h \
  /usr/include/c++/7/bits/shared_ptr_base.h \
  /usr/include/c++/7/bits/allocated_ptr.h \
- /usr/include/c++/7/bits/refwrap.h \
  /usr/include/c++/7/bits/shared_ptr_atomic.h \
  /usr/include/c++/7/bits/atomic_base.h \
  /usr/include/c++/7/bits/atomic_lockfree_defines.h \
@@ -187,7 +188,6 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /usr/include/c++/7/bits/std_function.h \
  /usr/include/c++/7/bits/regex_constants.h \
  /usr/include/c++/7/bits/regex_error.h \
  /usr/include/c++/7/bits/regex_automaton.h \
@@ -198,5 +198,4 @@ obj/KoreanDictionaryProvider.o: src/KoreanDictionaryProvider.cpp \
  /usr/include/c++/7/bits/regex_compiler.tcc \
  /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
  /usr/include/c++/7/bits/regex_executor.h \
- /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/functional \
- /usr/include/c++/7/codecvt
+ /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/codecvt

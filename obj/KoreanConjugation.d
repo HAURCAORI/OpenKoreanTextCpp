@@ -139,9 +139,10 @@ obj/KoreanConjugation.o: src/KoreanConjugation.cpp \
  /usr/include/c++/7/bits/stl_multiset.h /usr/include/c++/7/unordered_set \
  /usr/include/c++/7/bits/hashtable.h \
  /usr/include/c++/7/bits/hashtable_policy.h \
- /usr/include/c++/7/bits/unordered_set.h /usr/include/c++/7/iostream \
- /usr/include/c++/7/ostream /usr/include/c++/7/ios \
- /usr/include/c++/7/bits/ios_base.h \
+ /usr/include/c++/7/bits/unordered_set.h /usr/include/c++/7/functional \
+ /usr/include/c++/7/bits/std_function.h /usr/include/c++/7/bits/refwrap.h \
+ /usr/include/c++/7/iostream /usr/include/c++/7/ostream \
+ /usr/include/c++/7/ios /usr/include/c++/7/bits/ios_base.h \
  /usr/include/c++/7/bits/locale_classes.h \
  /usr/include/c++/7/bits/locale_classes.tcc \
  /usr/include/c++/7/system_error \
