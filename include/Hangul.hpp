@@ -5,17 +5,20 @@
 #include <set>
 
 #define vecIndex(vec,c) (std::find(vec.begin(),vec.end(),c)-vec.begin())
+#define NullChar 0x0000
 
 typedef wchar_t Char;
 
+
 namespace OpenKorean {
+
 struct HangulChar {
     Char onset;
     Char vowel;
     Char coda;
     HangulChar(Char _onset, Char _vowel, Char _coda) : onset(_onset), vowel(_vowel), coda(_coda) {} 
     bool compare(const HangulChar& rhs) {
-        return !((rhs.onset != NULL)&&(rhs.onset != this->onset));
+        return ((rhs.onset == NullChar)||(rhs.onset == this->onset)) && ((rhs.vowel == NullChar)||(rhs.vowel == this->vowel)) && ((rhs.coda == NullChar)||(rhs.coda == this->coda));
     }
 };
 

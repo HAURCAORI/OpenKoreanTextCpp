@@ -41,7 +41,17 @@ private:
     static const std::vector<Char> PRE_EOMI_RESPECT;
 
     static const std::vector<Char> PRE_EOMI_VOWEL;
-    static void expanding(ExpandedWord& expanded);
+    static void expanding(ExpandedWord& expanded, bool isAdjective);
+
+    template<typename F>
+    static std::vector<std::wstring> map(const std::vector<Char>& chars, F lambda) {
+        std::vector<std::wstring> ret;
+        ret.reserve(chars.size());
+        for(auto it = chars.begin(); it != chars.end(); ++it) {
+            ret.push_back(lambda(*it));
+        }
+        return ret;
+    }
 
 public:
     static std::vector<std::wstring> addPreEomi(Char lastChar, std::vector<Char> charsToAdd) {
@@ -65,7 +75,7 @@ public:
 
     static std::vector<std::wstring> conjugatePredicated(std::wstring words, bool isAdjective) {
         ExpandedWord expanded(words);
-        expanding(expanded);
+        expanding(expanded, isAdjective);
         std::vector<std::wstring> ret;
         return ret;
     }

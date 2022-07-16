@@ -1,7 +1,9 @@
 #include "KoreanConjugation.hpp"
 #include <iostream>
-std::vector<Char> operator*(const std::vector<Char>& lhs, const std::vector<Char>& rhs) {
-    std::vector<Char> temp;
+
+template<typename T>
+std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
+    std::vector<T> temp;
     temp.insert(temp.begin(), lhs.begin(), lhs.end());
     temp.insert(temp.begin(), rhs.begin(), rhs.end());
     return temp;
@@ -39,6 +41,19 @@ const std::vector<Char> KoreanConjugation::PRE_EOMI_RESPECT = { L'세', L'시', 
 
 const std::vector<Char> KoreanConjugation::PRE_EOMI_VOWEL = KoreanConjugation::PRE_EOMI_COMMON * KoreanConjugation::PRE_EOMI_2 * KoreanConjugation::PRE_EOMI_3 * KoreanConjugation::PRE_EOMI_RESPECT;
 
-void KoreanConjugation::expanding(ExpandedWord& expanded) {
-    expanded.lastCharDecomposed == HangulChar{NULL,L'ㅏ',' '};
+
+void KoreanConjugation::expanding(ExpandedWord& expanded, bool isAdjective) {
+    HangulChar lastChar = expanded.lastCharDecomposed;
+    
+    // 하다, special case
+    if(lastChar.compare(HangulChar(L'ㅎ', L'ㅏ', L' '))) {
+        std::vector<Char> endings;
+        if(isAdjective) {
+            endings = { L'합', L'해', L'히', L'하' };
+        } else {
+            endings = { L'합', L'해' };
+        }
+        addPreEomi(expanded.lastChar, PRE_EOMI_COMMON * PRE_EOMI_2 * PRE_EOMI_6 * PRE_EOMI_RESPECT);
+        std::vector<std::wstring> temp = map(CODAS_COMMON, [](Char c) { return Hangul::composeHangul(L'ㅎ', L'ㅐ', c); } );
+    }
 }
