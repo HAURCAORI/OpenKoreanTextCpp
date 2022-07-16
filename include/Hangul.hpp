@@ -13,6 +13,14 @@ inline std::wstring toString(Char c) {
     return std::wstring(1,c);
 }
 
+inline std::vector<std::wstring> toStringVector(Char c) {
+    return { std::wstring(1, c) };
+}
+
+inline std::vector<std::wstring> toStringVector(std::wstring s) {
+    return { s };
+}
+
 namespace OpenKorean {
 
 struct HangulChar {
