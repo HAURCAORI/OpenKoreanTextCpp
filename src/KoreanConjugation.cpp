@@ -9,6 +9,14 @@ std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
     return temp;
 }
 
+template<typename T>
+std::vector<T> insertVector(const std::vector<T>& lhs, const std::vector<T>& rhs) {
+    std::vector<T> temp;
+    temp.insert(temp.begin(), lhs.begin(), lhs.end());
+    temp.insert(temp.begin(), rhs.begin(), rhs.end());
+    return temp;
+}
+
 using namespace OpenKorean;
 
 const std::vector<Char> KoreanConjugation::CODAS_COMMON = {L'ㅂ', L'ㅆ', L'ㄹ', L'ㄴ', L'ㅁ'};
@@ -324,6 +332,22 @@ std::vector<std::wstring> KoreanConjugation::expanding_irregular(const ExpandedW
 Dictionary KoreanConjugation::conjugatePredicated(const std::wstring& words, bool isAdjective) {
     const ExpandedWord expanded(words);
     std::vector<std::wstring> temp = prependVector_s(expanding(expanded, isAdjective), expanded.init) * expanding_irregular(expanded);
+    std::unordered_set<std::wstring> ret(temp.begin(), temp.end());
+    if(!isAdjective) {
+        ret.erase(L"아니");
+        ret.erase(L"입");
+        ret.erase(L"입니");
+        ret.erase(L"나는");
+    }
+    return ret;
+}
+
+Dictionary KoreanConjugation::conjugatePredicated(const std::vector<std::wstring>& vec_words, bool isAdjective) {
+    std::vector<std::wstring> temp;
+    for(auto it = vec_words.begin(); it != vec_words.end(); ++it) {
+        const ExpandedWord expanded(*it);
+        temp = insertVector(temp, prependVector_s(expanding(expanded, isAdjective), expanded.init) * expanding_irregular(expanded));
+    }
     std::unordered_set<std::wstring> ret(temp.begin(), temp.end());
     if(!isAdjective) {
         ret.erase(L"아니");

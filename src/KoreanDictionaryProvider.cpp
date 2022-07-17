@@ -37,6 +37,7 @@ const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
     {KoreanPos::Modifier, {"substantives/modifier.txt"}},
     {KoreanPos::VerbPrefix, {"verb/verb_prefix.txt"}},
     {KoreanPos::Suffix, {"substantives/suffix.txt"}},
+
     {KoreanPos::ProperNoun, {"noun/entities.txt","noun/names.txt", "noun/twitter.txt", "noun/lol.txt", "noun/company_names.txt",
         "noun/foreign.txt", "noun/geolocations.txt",
         "substantives/given_names.txt", "noun/kpop.txt", "noun/bible.txt",
@@ -44,12 +45,30 @@ const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
         "noun/brand.txt", "noun/fashion.txt", "noun/neologism.txt"}},
 
     {KoreanPos::SpamNouns, {"noun/spam.txt", "noun/profane.txt"}},
+
     {KoreanPos::FamilyName, {"substantives/family_names.txt"}},
     {KoreanPos::GivenName, {"substantives/given_names.txt"}},
     {KoreanPos::FullName, {"noun/kpop.txt", "noun/foreign.txt", "noun/names.txt"}}
 #endif
 };
 
+std::vector<std::wstring> KoreanDictionaryProvider::readWordsAsVector(const FilePaths& filenames) {
+    std::vector<std::wstring> temp;
+    for(auto iterFile = filenames.begin(); iterFile != filenames.end(); ++iterFile) {
+        std::string path = RESOURCE_DIR + *iterFile;
+        FILE *fp = fopen(path.c_str(), "r");
+
+        if(fp == NULL) { throw std::ios_base::failure("Error while opening file '" + *iterFile + "'."); }
+        char buffer[50];
+        while(fgets(buffer, 50, fp) != NULL) {
+            std::string str(buffer);
+            str.pop_back();
+            temp.push_back(convert_wstring(str));
+        }
+        fclose(fp);
+    }
+    return temp;
+}
 
 Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
     Dictionary temp;
@@ -65,12 +84,14 @@ Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
             temp.insert(convert_wstring(str));
         }
         fclose(fp);
-        
     }
     return temp;
 }
 
 
+/*
+    파일의 존재 유무 확인
+*/
 bool KoreanDictionaryProvider::fileCheck() {
     ProcessLog::log(ProcessLog::Process,"Dictionary FileCheck...");
     for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
@@ -89,6 +110,9 @@ bool KoreanDictionaryProvider::fileCheck() {
     return true;
 }
 
+/*
+    파일을 koreanDictionary으로 로드
+*/
 void KoreanDictionaryProvider::load() {
     if(isloaded) { clear(); }
     if(!fileCheck()) {
@@ -99,7 +123,13 @@ void KoreanDictionaryProvider::load() {
         ProcessLog::log(ProcessLog::Process, "Loading...");
         for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
             ProcessLog::logs("loading : " + TagString.find(iterType->first)->second + "...");
-            koreanDictionary[iterType->first] = readWords(iterType->second);
+            if(iterType->first == KoreanPos::Verb) {
+                koreanDictionary[iterType->first] = KoreanConjugation::conjugatePredicated(readWordsAsVector(iterType->second));
+            } else if (iterType->first == KoreanPos::Adjective) {
+                koreanDictionary[iterType->first] = KoreanConjugation::conjugatePredicated(readWordsAsVector(iterType->second), true);
+            } else {
+                koreanDictionary[iterType->first] = readWords(iterType->second);
+            }
             ProcessLog::log(" OK");
         }
         ProcessLog::log(ProcessLog::Success, "Loading");

@@ -1,0 +1,48 @@
+▷인터페이스
+src/main/java/org/openkoreantext/processor/
+KoreanPosJava.java
+KoreanTokenJava.java
+OpenKoreanTextProcessorJava.java
+src/main/java/org/openkoreantext/processor/util
+CharArrayMap.java
+CharArraySet.java
+CharacterUtils.java
+
+
+▷리소스
+src/main/resources/org/openkoreantext/processor/util
+
+▷소스
+src/main/scala/org/openkoreantext/processor/
+	1) OpenKoreanTextProcessor.scala
+src/main/scala/org/openkoreantext/processor/normalizer
+	2) KoreanNormalizer.scala (10%)
+src/main/scala/org/openkoreantext/processor/phrase_extractor
+	3) KoreanPhraseExtractor.scala
+src/main/scala/org/openkoreantext/processor/qa
+	4) BatchGetUnknownNouns.scala
+    5) BatchTokenizeTweets.scala
+    6) KoreanProcessorSandbox.scala
+src/main/scala/org/openkoreantext/processor/stemmer
+	7) KoreanStemmer.scala
+src/main/scala/org/openkoreantext/processor/tokenizer
+	8) KoreanChunker.scala
+    9) KoreanDetokenizer.scala
+    10) KoreanSentenceSplitter.scala
+    11) KoreanTokenizer.scala
+    12) ParasedChunk.scala
+    13) TokenizerProfile.scala
+src/main/scala/org/openkoreantext/processor/tools
+	14) CreateChunkParsingCandidates.scala
+    15) CreateConjugationExamples.scala
+    16) CreateParsingExamples.scala
+    17) CreatePhraseExtractionExamples.scala
+    18) DeduplicateAndSortDictionaries.scala
+    19) Runnable.scala
+    20) UpdateAllTheExamples.scala
+src/main/scala/org/openkoreantext/processor/until
+	21) Hangul.scala (100%)
+    22) KoreanConjugation.scala (100%)
+    23) KoreanDictionaryProvider.scala (70%)
+    24) KoreanPos.scala (90%) - KoreanPosTrie 제외
+    25) KoreanSubstantive.scala (10%)

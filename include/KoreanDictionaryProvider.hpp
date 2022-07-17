@@ -35,7 +35,7 @@ private:
     void readWordMap();
     
     //readWordAsSeq
-    //readWordAsSet
+    std::vector<std::wstring> readWordsAsVector(const FilePaths& filenames);
     Dictionary readWords(const FilePaths& filenames);
     //readFileByLineFromResources
 
