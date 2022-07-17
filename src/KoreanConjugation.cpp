@@ -1,16 +1,10 @@
 #include "KoreanConjugation.hpp"
 #include <iostream>
 
+// vector concatenate하는 연산자
+// vector 크기가 클 경우 성능문제 있음
 template<typename T>
 std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
-    std::vector<T> temp;
-    temp.insert(temp.begin(), lhs.begin(), lhs.end());
-    temp.insert(temp.begin(), rhs.begin(), rhs.end());
-    return temp;
-}
-
-template<typename T>
-std::vector<T> insertVector(const std::vector<T>& lhs, const std::vector<T>& rhs) {
     std::vector<T> temp;
     temp.insert(temp.begin(), lhs.begin(), lhs.end());
     temp.insert(temp.begin(), rhs.begin(), rhs.end());
@@ -343,12 +337,12 @@ Dictionary KoreanConjugation::conjugatePredicated(const std::wstring& words, boo
 }
 
 Dictionary KoreanConjugation::conjugatePredicated(const std::vector<std::wstring>& vec_words, bool isAdjective) {
-    std::vector<std::wstring> temp;
+    std::unordered_set<std::wstring> ret;
     for(auto it = vec_words.begin(); it != vec_words.end(); ++it) {
         const ExpandedWord expanded(*it);
-        temp = insertVector(temp, prependVector_s(expanding(expanded, isAdjective), expanded.init) * expanding_irregular(expanded));
+        std::vector<std::wstring> temp = prependVector_s(expanding(expanded, isAdjective), expanded.init) * expanding_irregular(expanded);
+        std::copy(temp.begin(),temp.end(), std::inserter(ret,ret.end()));
     }
-    std::unordered_set<std::wstring> ret(temp.begin(), temp.end());
     if(!isAdjective) {
         ret.erase(L"아니");
         ret.erase(L"입");
