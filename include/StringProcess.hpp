@@ -5,9 +5,9 @@
 #include <codecvt>
 #include <locale>
 
-typedef std::function<std::wstring(const std::wsmatch&)> wstringMatchFunc;
-typedef wstringMatchFunc::argument_type wstringMatchArg;
-typedef wstringMatchFunc::result_type wstringMatchRet;
+using wstringMatchFunc = std::function<std::wstring(const std::wsmatch&)>;
+using wstringMatchArg = wstringMatchFunc::argument_type;
+using wstringMatchRet = wstringMatchFunc::result_type;
 
 inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, wstringMatchFunc func) {
     std::wstring output;

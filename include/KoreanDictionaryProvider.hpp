@@ -59,7 +59,7 @@ public:
     
     inline Dictionary getDictionary(KoreanPos tag) const {
         if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }
-        return koreanDictionary.find(tag)->second;
+        return (koreanDictionary.find(tag)->second);
     }
     inline bool contain(KoreanPos tag, const std::wstring& str) {
         if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }
@@ -67,6 +67,7 @@ public:
         if(m == koreanDictionary.end()) { return false; }
         return (m->second.find(str) != m->second.end()) ? true : false;
     }
+
     //addWordsToDictionary
     //removeWordsToDictionary
     

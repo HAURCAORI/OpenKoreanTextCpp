@@ -147,7 +147,7 @@ obj/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/tuple /usr/include/c++/7/array \
  /usr/include/c++/7/bits/uses_allocator.h \
  /usr/include/c++/7/bits/invoke.h include/OpenKoreanTextProcessor.hpp \
- include/KoreanNormalizer.hpp include/stdafx.h /usr/include/c++/7/vector \
+ include/KoreanNormalizer.hpp /usr/include/c++/7/vector \
  /usr/include/c++/7/bits/stl_construct.h \
  /usr/include/c++/7/bits/stl_uninitialized.h \
  /usr/include/c++/7/bits/stl_vector.h \
@@ -170,5 +170,35 @@ obj/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/functional /usr/include/c++/7/bits/std_function.h \
  /usr/include/c++/7/bits/refwrap.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
- /usr/include/x86_64-linux-gnu/bits/stat.h /usr/include/c++/7/chrono \
- /usr/include/c++/7/ratio /usr/include/c++/7/bits/parse_numbers.h
+ /usr/include/x86_64-linux-gnu/bits/stat.h include/StringProcess.hpp \
+ /usr/include/c++/7/regex /usr/include/c++/7/bitset \
+ /usr/include/c++/7/iterator /usr/include/c++/7/bits/stream_iterator.h \
+ /usr/include/c++/7/memory /usr/include/c++/7/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/7/ext/concurrence.h \
+ /usr/include/c++/7/bits/unique_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr_base.h \
+ /usr/include/c++/7/bits/allocated_ptr.h \
+ /usr/include/c++/7/bits/shared_ptr_atomic.h \
+ /usr/include/c++/7/bits/atomic_base.h \
+ /usr/include/c++/7/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/7/backward/auto_ptr.h /usr/include/c++/7/sstream \
+ /usr/include/c++/7/bits/sstream.tcc /usr/include/c++/7/stack \
+ /usr/include/c++/7/deque /usr/include/c++/7/bits/stl_deque.h \
+ /usr/include/c++/7/bits/deque.tcc /usr/include/c++/7/bits/stl_stack.h \
+ /usr/include/c++/7/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+ /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+ /usr/include/c++/7/bits/regex_constants.h \
+ /usr/include/c++/7/bits/regex_error.h \
+ /usr/include/c++/7/bits/regex_automaton.h \
+ /usr/include/c++/7/bits/regex_automaton.tcc \
+ /usr/include/c++/7/bits/regex_scanner.h \
+ /usr/include/c++/7/bits/regex_scanner.tcc \
+ /usr/include/c++/7/bits/regex_compiler.h \
+ /usr/include/c++/7/bits/regex_compiler.tcc \
+ /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
+ /usr/include/c++/7/bits/regex_executor.h \
+ /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/codecvt \
+ /usr/include/c++/7/chrono /usr/include/c++/7/ratio \
+ /usr/include/c++/7/bits/parse_numbers.h

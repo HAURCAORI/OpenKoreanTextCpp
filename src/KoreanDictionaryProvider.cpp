@@ -3,12 +3,6 @@
 #include "KoreanDictionaryProvider.hpp"
 #include "StringProcess.hpp"
 
-/*
-#include <chrono>
-#define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-#define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
-*/
-
 //#define TEST_SET
 
 
@@ -59,13 +53,21 @@ std::vector<std::wstring> KoreanDictionaryProvider::readWordsAsVector(const File
         FILE *fp = fopen(path.c_str(), "r");
 
         if(fp == NULL) { throw std::ios_base::failure("Error while opening file '" + *iterFile + "'."); }
+        wchar_t buffer[50];
+        while(fgetws(buffer, 50, fp) != NULL) {
+            std::wstring str(buffer);
+            str.pop_back();
+            temp.push_back(str);
+        }
+        fclose(fp);
+        /*
         char buffer[50];
         while(fgets(buffer, 50, fp) != NULL) {
             std::string str(buffer);
             str.pop_back();
             temp.push_back(convert_wstring(str));
         }
-        fclose(fp);
+        fclose(fp);*/
     }
     return temp;
 }
@@ -77,12 +79,19 @@ Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
         FILE *fp = fopen(path.c_str(), "r");
 
         if(fp == NULL) { throw std::ios_base::failure("Error while opening file '" + *iterFile + "'."); }
+        wchar_t buffer[50];
+        while(fgetws(buffer, 50, fp) != NULL) {
+            std::wstring str(buffer);
+            str.pop_back();
+            temp.insert(str);
+        }
+        /*
         char buffer[50];
         while(fgets(buffer, 50, fp) != NULL) {
             std::string str(buffer);
             str.pop_back();
             temp.insert(convert_wstring(str));
-        }
+        }*/
         fclose(fp);
     }
     return temp;

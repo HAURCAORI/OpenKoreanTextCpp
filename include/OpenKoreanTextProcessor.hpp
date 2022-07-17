@@ -5,11 +5,12 @@
 namespace OpenKorean {
 class OpenKoreanTextProcessor {
 private:
-    KoreanNormalizer mKoreanNormalizer;
     KoreanDictionaryProvider mKoreanDictionaryProvider;
+    KoreanNormalizer mKoreanNormalizer;
 
 public:
-    OpenKoreanTextProcessor() = default;
+    OpenKoreanTextProcessor() : mKoreanDictionaryProvider(), mKoreanNormalizer(mKoreanDictionaryProvider) {}
+    
     inline std::wstring normalize(std::wstring text) {
         return mKoreanNormalizer.normalize(text);
     }

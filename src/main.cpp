@@ -24,18 +24,13 @@ void test_conjugation() {
 
 int main() {
     std::locale::global(std::locale(""));
-    /*
-    OpenKorean::OpenKoreanTextProcessor m;
-
-    std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
-    m.normalize(text);
-    */
+    
     //test_conjugation();
 
-    BEGIN_CHRONO
-    OpenKorean::KoreanDictionaryProvider dic;
-    END_CHRONO
-
+    OpenKorean::OpenKoreanTextProcessor m;
+    std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
+    std::wcout << m.normalize(text) << std::endl;
+    
     /*
     std::string ts("가가호호");
     std::wstring ws(ts.begin(), ts.end());

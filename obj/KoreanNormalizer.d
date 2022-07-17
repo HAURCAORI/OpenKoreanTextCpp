@@ -1,5 +1,5 @@
 obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
- /usr/include/stdc-predef.h include/KoreanNormalizer.hpp include/stdafx.h \
+ /usr/include/stdc-predef.h include/KoreanNormalizer.hpp \
  /usr/include/c++/7/string \
  /usr/include/x86_64-linux-gnu/c++/7/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/os_defines.h \
@@ -123,13 +123,7 @@ obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
  /usr/include/c++/7/bits/stl_uninitialized.h \
  /usr/include/c++/7/bits/stl_vector.h \
  /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
- include/StringProcess.hpp /usr/include/c++/7/regex \
- /usr/include/c++/7/algorithm /usr/include/c++/7/utility \
- /usr/include/c++/7/bits/stl_relops.h /usr/include/c++/7/bits/stl_algo.h \
- /usr/include/c++/7/bits/algorithmfwd.h \
- /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
- /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
- /usr/include/c++/7/bitset /usr/include/c++/7/iterator \
+ include/KoreanDictionaryProvider.hpp /usr/include/c++/7/iostream \
  /usr/include/c++/7/ostream /usr/include/c++/7/ios \
  /usr/include/c++/7/bits/ios_base.h \
  /usr/include/c++/7/bits/locale_classes.h \
@@ -147,9 +141,32 @@ obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
  /usr/include/c++/7/bits/locale_facets.tcc \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
- /usr/include/c++/7/bits/istream.tcc \
- /usr/include/c++/7/bits/stream_iterator.h /usr/include/c++/7/locale \
- /usr/include/c++/7/bits/locale_facets_nonio.h /usr/include/c++/7/ctime \
+ /usr/include/c++/7/bits/istream.tcc /usr/include/c++/7/unordered_map \
+ /usr/include/c++/7/utility /usr/include/c++/7/bits/stl_relops.h \
+ /usr/include/c++/7/tuple /usr/include/c++/7/array \
+ /usr/include/c++/7/bits/uses_allocator.h \
+ /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/ext/aligned_buffer.h \
+ /usr/include/c++/7/bits/hashtable.h \
+ /usr/include/c++/7/bits/hashtable_policy.h \
+ /usr/include/c++/7/bits/unordered_map.h /usr/include/c++/7/unordered_set \
+ /usr/include/c++/7/bits/unordered_set.h include/KoreanPos.hpp \
+ /usr/include/c++/7/map /usr/include/c++/7/bits/stl_tree.h \
+ /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/bits/stl_multimap.h \
+ /usr/include/c++/7/set /usr/include/c++/7/bits/stl_set.h \
+ /usr/include/c++/7/bits/stl_multiset.h include/KoreanConjugation.hpp \
+ include/Hangul.hpp /usr/include/c++/7/algorithm \
+ /usr/include/c++/7/bits/stl_algo.h \
+ /usr/include/c++/7/bits/algorithmfwd.h \
+ /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
+ /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
+ /usr/include/c++/7/functional /usr/include/c++/7/bits/std_function.h \
+ /usr/include/c++/7/bits/refwrap.h \
+ /usr/include/x86_64-linux-gnu/sys/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h include/StringProcess.hpp \
+ /usr/include/c++/7/regex /usr/include/c++/7/bitset \
+ /usr/include/c++/7/iterator /usr/include/c++/7/bits/stream_iterator.h \
+ /usr/include/c++/7/locale /usr/include/c++/7/bits/locale_facets_nonio.h \
+ /usr/include/c++/7/ctime \
  /usr/include/x86_64-linux-gnu/c++/7/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/7/bits/codecvt.h \
@@ -157,17 +174,12 @@ obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
  /usr/include/c++/7/bits/locale_conv.h \
  /usr/include/c++/7/bits/stringfwd.h /usr/include/c++/7/bits/allocator.h \
  /usr/include/c++/7/bits/codecvt.h /usr/include/c++/7/bits/unique_ptr.h \
- /usr/include/c++/7/tuple /usr/include/c++/7/array \
- /usr/include/c++/7/bits/uses_allocator.h \
- /usr/include/c++/7/bits/invoke.h /usr/include/c++/7/memory \
- /usr/include/c++/7/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/7/memory /usr/include/c++/7/bits/stl_raw_storage_iter.h \
  /usr/include/c++/7/ext/concurrence.h \
  /usr/include/c++/7/bits/unique_ptr.h \
  /usr/include/c++/7/bits/shared_ptr.h \
  /usr/include/c++/7/bits/shared_ptr_base.h \
  /usr/include/c++/7/bits/allocated_ptr.h \
- /usr/include/c++/7/bits/refwrap.h \
- /usr/include/c++/7/ext/aligned_buffer.h \
  /usr/include/c++/7/bits/shared_ptr_atomic.h \
  /usr/include/c++/7/bits/atomic_base.h \
  /usr/include/c++/7/bits/atomic_lockfree_defines.h \
@@ -175,12 +187,9 @@ obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
  /usr/include/c++/7/bits/sstream.tcc /usr/include/c++/7/stack \
  /usr/include/c++/7/deque /usr/include/c++/7/bits/stl_deque.h \
  /usr/include/c++/7/bits/deque.tcc /usr/include/c++/7/bits/stl_stack.h \
- /usr/include/c++/7/map /usr/include/c++/7/bits/stl_tree.h \
- /usr/include/c++/7/bits/stl_map.h /usr/include/c++/7/bits/stl_multimap.h \
  /usr/include/c++/7/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /usr/include/c++/7/bits/std_function.h \
  /usr/include/c++/7/bits/regex_constants.h \
  /usr/include/c++/7/bits/regex_error.h \
  /usr/include/c++/7/bits/regex_automaton.h \
@@ -191,5 +200,4 @@ obj/KoreanNormalizer.o: src/KoreanNormalizer.cpp \
  /usr/include/c++/7/bits/regex_compiler.tcc \
  /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
  /usr/include/c++/7/bits/regex_executor.h \
- /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/functional \
- /usr/include/c++/7/codecvt
+ /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/codecvt
