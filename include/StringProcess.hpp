@@ -27,6 +27,13 @@ inline std::wstring convert_wstring(const std::string& str) {
     return temp;
 }
 
+inline std::wstring takeRight(const std::wstring& str) {
+    return std::wstring(1, str.back());
+}
+
+inline std::wstring takeRight(const std::wstring& str, size_t num) {
+    return str.substr((str.length() > num ) ? (str.length() - num) : 0 );
+}
 
 /*
 inline std::wstring replaceAll(std::wstring input, std::wregex regex, wstringMatchFunc func) {

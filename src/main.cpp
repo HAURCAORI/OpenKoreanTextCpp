@@ -29,6 +29,7 @@ int main() {
 
     OpenKorean::OpenKoreanTextProcessor m;
     std::wstring text = LR"(가나다ㅋㅋㅋㅋ)";
+
     std::wcout << m.normalize(text) << std::endl;
     
     /*

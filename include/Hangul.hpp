@@ -54,9 +54,13 @@ struct HangulChar {
     Char onset;
     Char vowel;
     Char coda;
+    HangulChar() : onset(NullChar), vowel(NullChar), coda(NullChar) {}
     HangulChar(Char _onset, Char _vowel, Char _coda) : onset(_onset), vowel(_vowel), coda(_coda) {} 
     bool compare(const HangulChar& rhs) const {
         return ((rhs.onset == NullChar)||(rhs.onset == this->onset)) && ((rhs.vowel == NullChar)||(rhs.vowel == this->vowel)) && ((rhs.coda == NullChar)||(rhs.coda == this->coda));
+    }
+    bool isNull() {
+        return (onset == NullChar) && (vowel == NullChar) && (coda == NullChar);
     }
 };
 
@@ -72,11 +76,14 @@ static const Char VOWEL_BASE = 28;
 
 class Hangul {
 private:
+    
+public:
     static const std::vector<Char> ONSET_LIST;
     static const std::vector<Char> VOWEL_LIST;
     static const std::vector<Char> CODA_LIST;
+    static const std::set<Char> CODA_SET;
     static const std::map<Char,DoubleCoda> DOUBLE_CODAS;
-public:
+
     static HangulChar decomposeHangul(Char c) {
         if(std::find(ONSET_LIST.begin(),ONSET_LIST.end(),c) != ONSET_LIST.end() ||
         std::find(VOWEL_LIST.begin(),VOWEL_LIST.end(),c) != VOWEL_LIST.end() ||

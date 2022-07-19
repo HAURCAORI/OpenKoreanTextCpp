@@ -1,5 +1,5 @@
 #include "KoreanNormalizer.hpp"
-
+#include <utility>
 
 using namespace OpenKorean;
 const std::wregex EXTENTED_KOREAN_REGEX = std::wregex(LR"(([ㄱ-ㅣ가-힣]+))");
@@ -9,14 +9,36 @@ const std::wregex REPEATING_2CHAR_REGEX = std::wregex(LR"((..)\1{2,})");
 const std::wregex WHITESPACE_REGEX = std::wregex(LR"(\s+)");
 const std::vector<std::wstring> CODA_N_EXCPETION = {L"은",L"는",L"운",L"인",L"텐",L"근",L"른",L"픈",L"닌",L"든",L"던"};
 
+
+std::wstring normalizeEmotionAttachedChunk(const std::wstring& s, const std::wstring& toNormalize) {
+    std::wstring init = s.substr(0,s.length() - 1);
+    HangulChar secondToLastDecomposed;
+    if(init.length() > 0) {
+        HangulChar hc = Hangul::decomposeHangul(init.at(init.length() - 1));
+        if(hc.coda == L' ') {
+            secondToLastDecomposed = hc;
+        }
+    }
+    HangulChar temp = Hangul::decomposeHangul(s.at(s.length() - 1));
+    if(temp.coda == L'ㅋ' || temp.coda == L'ㅎ') {
+        return init + Hangul::composeHangul(temp.onset, temp.vowel);
+    } else if(!secondToLastDecomposed.isNull() && temp.vowel == toNormalize.at(0) && Hangul::CODA_SET.find(temp.onset) != Hangul::CODA_SET.end()) {
+        return init.substr(0, init.length() - 1) + Hangul::composeHangul(secondToLastDecomposed.onset,secondToLastDecomposed.vowel,temp.onset);
+    } else {
+        return s;
+    }
+}
+
 wstringMatchRet KoreanNormalizer::processNormalizationCandidate(wstringMatchArg match) {
     std::wstring chunk = match[1];
     std::wstring toNormalize = match[2];
-    if(mKoreanDictionaryProvider.contain(KoreanPos::Noun, L"사과")) {
-        return chunk + toNormalize;
+    std::wstring normalizedChunk;
+    if(mKoreanDictionaryProvider.contain(KoreanPos::Noun,chunk) || mKoreanDictionaryProvider.contain(KoreanPos::Eomi,takeRight(chunk)) || mKoreanDictionaryProvider.contain(KoreanPos::Eomi,takeRight(chunk,2))) {
+        normalizedChunk = chunk;
+    } else {
+        normalizedChunk = normalizeEmotionAttachedChunk(chunk, toNormalize);
     }
-    //std::wstring normalizedChunk
-    return chunk;
+    return normalizedChunk + toNormalize;
 }
 wstringMatchRet KoreanNormalizer::normalizeKoreanChunk(wstringMatchArg match) {
     std::wstring output = replaceAll(match[0],KOREAN_TO_NORMALIZE_REGEX, [&](wstringMatchArg match) { return processNormalizationCandidate(match); });

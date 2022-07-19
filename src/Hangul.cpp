@@ -19,6 +19,13 @@ const std::vector<Char> Hangul::CODA_LIST = {
     L'ㅋ', L'ㅌ', L'ㅍ', L'ㅎ'
 };
 
+const std::set<Char> Hangul::CODA_SET = {
+    L' ', L'ㄱ', L'ㄲ', L'ㄳ', L'ㄴ', L'ㄵ', L'ㄶ', L'ㄷ',
+    L'ㄹ', L'ㄺ', L'ㄻ', L'ㄼ', L'ㄽ', L'ㄾ', L'ㄿ', L'ㅀ',
+    L'ㅁ', L'ㅂ', L'ㅄ', L'ㅅ', L'ㅆ', L'ㅇ', L'ㅈ', L'ㅊ',
+    L'ㅋ', L'ㅌ', L'ㅍ', L'ㅎ'
+};
+
 const std::map<Char,DoubleCoda> Hangul::DOUBLE_CODAS = {
     {L'ㄳ' , DoubleCoda(L'ㄱ', L'ㅅ')},
     {L'ㄵ' , DoubleCoda(L'ㄴ', L'ㅈ')},
