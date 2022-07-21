@@ -63,6 +63,7 @@ enum class KoreanPos {
     SpamNouns, FamilyName, GivenName, FullName
 };
 
+
 static const std::set<KoreanPos> OtherPoses = {
     KoreanPos::Korean, KoreanPos::Foreign, KoreanPos::Number, KoreanPos::KoreanParticle, KoreanPos::Alpha,
     KoreanPos::Punctuation, KoreanPos::Hashtag, KoreanPos::ScreenName,

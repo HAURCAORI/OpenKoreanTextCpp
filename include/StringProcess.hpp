@@ -10,11 +10,12 @@ using wstringMatchArg = wstringMatchFunc::argument_type;
 using wstringMatchRet = wstringMatchFunc::result_type;
 
 inline std::wstring replaceAll(const std::wstring& input, std::wregex regex, wstringMatchFunc func) {
-    std::wstring output;
-    output.reserve(input.size());
-
     auto start = std::wsregex_iterator(input.begin(), input.end(), regex);
     auto end = std::wsregex_iterator();
+    if(start == end) { return input; } // 매칭 결과가 없을 시 
+    
+    std::wstring output;
+    output.reserve(input.size());
     while(start != end) {
         output += start->prefix().str();
         output += func((*start));
@@ -33,6 +34,10 @@ inline std::wstring takeRight(const std::wstring& str) {
 
 inline std::wstring takeRight(const std::wstring& str, size_t num) {
     return str.substr((str.length() > num ) ? (str.length() - num) : 0 );
+}
+
+inline std::wstring take(const std::wstring& str, size_t num) {
+    return str.substr(0, (str.length() > num) ? num : str.length() );
 }
 
 /*

@@ -14,6 +14,10 @@ public:
     inline std::wstring normalize(std::wstring text) {
         return mKoreanNormalizer.normalize(text);
     }
+
+    KoreanNormalizer* getNormalizer() {
+        return &mKoreanNormalizer;
+    }
     /*
     inline std::vector<KoreanToken> tokenize(std::string text) {
         return mKoreanTokenizer.tokenize(text);   
