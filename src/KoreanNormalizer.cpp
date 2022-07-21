@@ -30,6 +30,7 @@ std::wstring KoreanNormalizer::normalizeCodaN(const std::wstring& chunk) {
     }
 
     //if(Predicates.find(KoreanTokenizer))
+    return chunk;
 }
 
 /*

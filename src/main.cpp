@@ -22,18 +22,12 @@ void test_conjugation() {
     }
 }
 
-void test_normalizeEmotionAttachedChunk(OpenKorean::OpenKoreanTextProcessor& m) {
-    std::wcout << L"test1" << std::endl;
-    std::wstring s = L"시바라";
-    std::wcout << m.getNormalizer()->normalizeEmotionAttachedChunk(s, L"ㅏ") << std::endl;
-}
-
 int main() {
     std::locale::global(std::locale(""));
     //test_conjugation();
 
     OpenKorean::OpenKoreanTextProcessor m;
-    std::wstring text = LR"(훌쩍훌쩍훌쩍)";
+    std::wstring text = LR"(슬프뮤ㅠㅠ)";
     //test_normalizeEmotionAttachedChunk(m);
     std::wcout << m.normalize(text) << std::endl;
     /*
