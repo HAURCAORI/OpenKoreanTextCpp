@@ -39,11 +39,16 @@
  * Unkown: Could not parse the string.
  */
 
-#define cmap(arg) {KoreanPos::arg, #arg}
+
 
 namespace OpenKorean {
-enum class KoreanPos {
-    // Word leved POS
+
+class KoreanPos {
+private:
+  
+
+public:
+  enum class KoreanPosEnum {
     Noun, Verb, Adjective, 
     Adverb, Determiner, Exclamation,
     Josa, Eomi, PreEomi, Conjunction,
@@ -61,46 +66,12 @@ enum class KoreanPos {
 
     //추가
     SpamNouns, FamilyName, GivenName, FullName
-};
-
-
-static const std::set<KoreanPos> OtherPoses = {
-    KoreanPos::Korean, KoreanPos::Foreign, KoreanPos::Number, KoreanPos::KoreanParticle, KoreanPos::Alpha,
-    KoreanPos::Punctuation, KoreanPos::Hashtag, KoreanPos::ScreenName,
-    KoreanPos::Email, KoreanPos::URL, KoreanPos::CashTag
-};
-
-static const std::map<KoreanPos,std::string> TagString = {
-    cmap(Noun), cmap(Verb), cmap(Adjective), cmap(Adverb), cmap(Determiner), cmap(Exclamation), cmap(Josa),
-    cmap(Eomi), cmap(PreEomi), cmap(Conjunction), cmap(Modifier), cmap(VerbPrefix), cmap(Suffix), cmap(Unknown),
-
-    cmap(Korean), cmap(Foreign), cmap(Number), cmap(KoreanParticle), cmap(Alpha),
-    cmap(Punctuation), cmap(Hashtag), cmap(ScreenName), cmap(Email), cmap(URL), cmap(CashTag),
-
-    cmap(Space), cmap(Others), cmap(ProperNoun),
-    cmap(SpamNouns), cmap(FamilyName), cmap(GivenName), cmap(FullName)
-};
-
-static const std::map<char, KoreanPos> shortCut = {
-    {'N',KoreanPos::Noun},
-    {'V',KoreanPos::Verb},
-    {'J',KoreanPos::Adjective},
-    {'A',KoreanPos::Adverb},
-    {'D',KoreanPos::Determiner},
-    {'E',KoreanPos::Exclamation},
-    {'C',KoreanPos::Conjunction},
-
-    {'j',KoreanPos::Josa},
-    {'e',KoreanPos::Eomi},
-    {'r',KoreanPos::PreEomi},
-    {'m',KoreanPos::Modifier},
-    {'v',KoreanPos::VerbPrefix},
-    {'s',KoreanPos::Suffix},
-
-    {'a',KoreanPos::Alpha},
-    {'n',KoreanPos::Number},
-
-    {'o',KoreanPos::Others}
+  };
+  
+  static const std::set<KoreanPosEnum> OtherPoses;
+  static const std::map<KoreanPosEnum,std::string> TagString;
+  static const std::map<char, KoreanPosEnum> shortCut;
+  static const std::set<KoreanPosEnum> Predicates;
 };
 
 /*
@@ -145,5 +116,4 @@ case class KoreanPosTrie(curPos: KoreanPos, nextTrie: List[KoreanPosTrie], endin
         buildTrie(s, ending_pos) ::: results
     }
 */
-static const std::set<KoreanPos> Predicates = {KoreanPos::Verb, KoreanPos::Adjective};
 }

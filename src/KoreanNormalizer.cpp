@@ -19,10 +19,10 @@ std::wstring KoreanNormalizer::normalizeCodaN(const std::wstring& chunk) {
     Char lastTwoHead = lastTwo[0];
 
     // Exception cases
-    if(mKoreanDictionaryProvider.contain(KoreanPos::Noun, chunk) ||
-    mKoreanDictionaryProvider.contain(KoreanPos::Conjunction, chunk) ||
-    mKoreanDictionaryProvider.contain(KoreanPos::Adverb, chunk) ||
-    mKoreanDictionaryProvider.contain(KoreanPos::Noun, lastTwo) ||
+    if(mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Noun, chunk) ||
+    mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Conjunction, chunk) ||
+    mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Adverb, chunk) ||
+    mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Noun, lastTwo) ||
     lastTwoHead < L'가' || lastTwoHead > L'힣' ||
     CODA_N_EXCPETION.find(lastTwoHead) != CODA_N_EXCPETION.end()
     ) {
@@ -62,7 +62,7 @@ wstringMatchRet KoreanNormalizer::processNormalizationCandidate(wstringMatchArg 
     std::wstring chunk = match[1];
     std::wstring toNormalize = match[2];
     std::wstring normalizedChunk;
-    if(mKoreanDictionaryProvider.contain(KoreanPos::Noun,chunk) || mKoreanDictionaryProvider.contain(KoreanPos::Eomi,takeRight(chunk)) || mKoreanDictionaryProvider.contain(KoreanPos::Eomi,takeRight(chunk,2))) {
+    if(mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Noun,chunk) || mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Eomi,takeRight(chunk)) || mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Eomi,takeRight(chunk,2))) {
         normalizedChunk = chunk;
     } else {
         normalizedChunk = normalizeEmotionAttachedChunk(chunk, toNormalize);

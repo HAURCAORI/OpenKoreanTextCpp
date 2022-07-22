@@ -8,41 +8,41 @@
 
 using namespace OpenKorean;
 
-const std::map<KoreanPos,FilePaths> KoreanDictionaryProvider::DataPaths {
+const std::map<KoreanPos::KoreanPosEnum,FilePaths> KoreanDictionaryProvider::DataPaths {
 #ifdef TEST_SET
-    {KoreanPos::Noun, {"noun/test.txt"}}
+    {KoreanPos::KoreanPosEnum::Noun, {"noun/test.txt"}}
 #else   
-    {KoreanPos::Noun, {"noun/nouns.txt", "noun/entities.txt", "noun/spam.txt",
+    {KoreanPos::KoreanPosEnum::Noun, {"noun/nouns.txt", "noun/entities.txt", "noun/spam.txt",
         "noun/names.txt", "noun/twitter.txt", "noun/lol.txt",
         "noun/slangs.txt", "noun/company_names.txt",
         "noun/foreign.txt", "noun/geolocations.txt", "noun/profane.txt",
         "substantives/given_names.txt", "noun/kpop.txt", "noun/bible.txt",
         "noun/pokemon.txt", "noun/congress.txt", "noun/wikipedia_title_nouns.txt",
         "noun/brand.txt", "noun/fashion.txt", "noun/neologism.txt"}},
-    {KoreanPos::Verb, {"verb/verb.txt"}},
-    {KoreanPos::Adjective, {"adjective/adjective.txt"}},
-    {KoreanPos::Adverb, {"adverb/adverb.txt"}},
-    {KoreanPos::Determiner, {"auxiliary/determiner.txt"}},
-    {KoreanPos::Exclamation, {"auxiliary/exclamation.txt"}},
-    {KoreanPos::Josa, {"josa/josa.txt"}},
-    {KoreanPos::Eomi, {"verb/eomi.txt"}},
-    {KoreanPos::PreEomi, {"verb/pre_eomi.txt"}},
-    {KoreanPos::Conjunction, {"auxiliary/conjunctions.txt"}},
-    {KoreanPos::Modifier, {"substantives/modifier.txt"}},
-    {KoreanPos::VerbPrefix, {"verb/verb_prefix.txt"}},
-    {KoreanPos::Suffix, {"substantives/suffix.txt"}},
+    {KoreanPos::KoreanPosEnum::Verb, {"verb/verb.txt"}},
+    {KoreanPos::KoreanPosEnum::Adjective, {"adjective/adjective.txt"}},
+    {KoreanPos::KoreanPosEnum::Adverb, {"adverb/adverb.txt"}},
+    {KoreanPos::KoreanPosEnum::Determiner, {"auxiliary/determiner.txt"}},
+    {KoreanPos::KoreanPosEnum::Exclamation, {"auxiliary/exclamation.txt"}},
+    {KoreanPos::KoreanPosEnum::Josa, {"josa/josa.txt"}},
+    {KoreanPos::KoreanPosEnum::Eomi, {"verb/eomi.txt"}},
+    {KoreanPos::KoreanPosEnum::PreEomi, {"verb/pre_eomi.txt"}},
+    {KoreanPos::KoreanPosEnum::Conjunction, {"auxiliary/conjunctions.txt"}},
+    {KoreanPos::KoreanPosEnum::Modifier, {"substantives/modifier.txt"}},
+    {KoreanPos::KoreanPosEnum::VerbPrefix, {"verb/verb_prefix.txt"}},
+    {KoreanPos::KoreanPosEnum::Suffix, {"substantives/suffix.txt"}},
 
-    {KoreanPos::ProperNoun, {"noun/entities.txt","noun/names.txt", "noun/twitter.txt", "noun/lol.txt", "noun/company_names.txt",
+    {KoreanPos::KoreanPosEnum::ProperNoun, {"noun/entities.txt","noun/names.txt", "noun/twitter.txt", "noun/lol.txt", "noun/company_names.txt",
         "noun/foreign.txt", "noun/geolocations.txt",
         "substantives/given_names.txt", "noun/kpop.txt", "noun/bible.txt",
         "noun/pokemon.txt", "noun/congress.txt", "noun/wikipedia_title_nouns.txt",
         "noun/brand.txt", "noun/fashion.txt", "noun/neologism.txt"}},
 
-    {KoreanPos::SpamNouns, {"noun/spam.txt", "noun/profane.txt"}},
+    {KoreanPos::KoreanPosEnum::SpamNouns, {"noun/spam.txt", "noun/profane.txt"}},
 
-    {KoreanPos::FamilyName, {"substantives/family_names.txt"}},
-    {KoreanPos::GivenName, {"substantives/given_names.txt"}},
-    {KoreanPos::FullName, {"noun/kpop.txt", "noun/foreign.txt", "noun/names.txt"}}
+    {KoreanPos::KoreanPosEnum::FamilyName, {"substantives/family_names.txt"}},
+    {KoreanPos::KoreanPosEnum::GivenName, {"substantives/given_names.txt"}},
+    {KoreanPos::KoreanPosEnum::FullName, {"noun/kpop.txt", "noun/foreign.txt", "noun/names.txt"}}
 #endif
 };
 
@@ -131,10 +131,10 @@ void KoreanDictionaryProvider::load() {
     try {
         ProcessLog::log(ProcessLog::Process, "Loading...");
         for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
-            ProcessLog::logs("loading : " + TagString.find(iterType->first)->second + "...");
-            if(iterType->first == KoreanPos::Verb) {
+            ProcessLog::logs("loading : " + KoreanPos::TagString.find(iterType->first)->second + "...");
+            if(iterType->first == KoreanPos::KoreanPosEnum::Verb) {
                 koreanDictionary[iterType->first] = KoreanConjugation::conjugatePredicated(readWordsAsVector(iterType->second));
-            } else if (iterType->first == KoreanPos::Adjective) {
+            } else if (iterType->first == KoreanPos::KoreanPosEnum::Adjective) {
                 koreanDictionary[iterType->first] = KoreanConjugation::conjugatePredicated(readWordsAsVector(iterType->second), true);
             } else {
                 koreanDictionary[iterType->first] = readWords(iterType->second);

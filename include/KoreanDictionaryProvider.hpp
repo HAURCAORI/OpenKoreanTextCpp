@@ -22,9 +22,9 @@ typedef std::vector<std::string> FilePaths;
 namespace OpenKorean {
 class KoreanDictionaryProvider {
 private:
-    static const std::map<KoreanPos,FilePaths> DataPaths;
+    static const std::map<KoreanPos::KoreanPosEnum,FilePaths> DataPaths;
     
-    std::unordered_map<KoreanPos, Dictionary> koreanDictionary;
+    std::unordered_map<KoreanPos::KoreanPosEnum, Dictionary> koreanDictionary;
     std::unordered_map<std::wstring, float> koreanEntityFreq;
     //typoDictionaryByLength
     //predicateStems
@@ -57,11 +57,11 @@ public:
     void load();
     void clear();
     
-    inline Dictionary getDictionary(KoreanPos tag) const {
+    inline Dictionary getDictionary(KoreanPos::KoreanPosEnum tag) const {
         if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }
         return (koreanDictionary.find(tag)->second);
     }
-    inline bool contain(KoreanPos tag, const std::wstring& str) {
+    inline bool contain(KoreanPos::KoreanPosEnum tag, const std::wstring& str) {
         if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }
         auto m = koreanDictionary.find(tag);
         if(m == koreanDictionary.end()) { return false; }
