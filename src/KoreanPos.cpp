@@ -78,12 +78,3 @@ std::vector<KoreanPosTrie> KoreanPos::getTrie(std::map<std::wstring, KoreanPos::
         ret = buildTrie(it->first,it->second) * ret;
     }
 }
-/*
-
-
-  protected[processor] def getTrie(sequences: Map[String, KoreanPos]): List[KoreanPosTrie] =
-    sequences.foldLeft(List[KoreanPosTrie]()) {
-      case (results: List[KoreanPosTrie], (s: String, ending_pos: KoreanPos)) =>
-        buildTrie(s, ending_pos) ::: results
-    }
-*/
