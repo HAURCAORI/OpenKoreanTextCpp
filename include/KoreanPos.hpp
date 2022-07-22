@@ -44,6 +44,8 @@
 
 namespace OpenKorean {
 
+struct KoreanPosTrie;
+
 class KoreanPos {
 private:
   static bool isFinal(const std::wstring& rest) {
@@ -79,75 +81,25 @@ public:
     //추가
     SpamNouns, FamilyName, GivenName, FullName
   };
-
-  struct KoreanPosTrie {
-    KoreanPosEnum curPos;
-    std::vector<KoreanPosTrie> nextTrie;
-    KoreanPosEnum ending;
-    
-    static KoreanPosTrie selfNode() { return {KoreanPosEnum::Null, std::vector<KoreanPosTrie>(), KoreanPosEnum::Null}; }
-  };
   
   static const std::set<KoreanPosEnum> OtherPoses;
   static const std::map<KoreanPosEnum,std::string> TagString;
   static const std::map<wchar_t, KoreanPosEnum> shortCut;
   static const std::set<KoreanPosEnum> Predicates;
-  static std::vector<KoreanPosTrie> bulildTrie(const std::wstring& s, KoreanPosEnum ending_pos);
+  static std::vector<KoreanPosTrie> buildTrie(const std::wstring& s, KoreanPosEnum ending_pos);
+  static std::vector<KoreanPosTrie> getTrie(std::map<std::wstring, KoreanPosEnum> sequences);
+
   
-  /*
-  rule match {
-      case '+' =>
-        List(KoreanPosTrie(pos, selfNode :: buildTrie(rest, ending_pos), end))
-      case '*' =>
-        List(KoreanPosTrie(pos, selfNode :: buildTrie(rest, ending_pos), end)) ++ buildTrie(rest, ending_pos)
-      case '1' =>
-        List(KoreanPosTrie(pos, buildTrie(rest, ending_pos), end))
-      case '0' =>
-        List(KoreanPosTrie(pos, buildTrie(rest, ending_pos), end)) ++ buildTrie(rest, ending_pos)
-    }
-    */
 };
 
-/*
-case class KoreanPosTrie(curPos: KoreanPos, nextTrie: List[KoreanPosTrie], ending: Option[KoreanPos])
+struct KoreanPosTrie {
+  KoreanPos::KoreanPosEnum curPos;
+  std::vector<KoreanPosTrie> nextTrie;
+  KoreanPos::KoreanPosEnum ending;
+    
+  static KoreanPosTrie selfNode() { return {KoreanPos::KoreanPosEnum::Null, std::vector<KoreanPosTrie>(), KoreanPos::KoreanPosEnum::Null}; }
+  static std::vector<KoreanPosTrie>selfNodeVec() { return std::vector<KoreanPosTrie>(1, selfNode()); }
+};
 
-  val selfNode = KoreanPosTrie(null, null, ending = None)
 
-  protected[processor] def buildTrie(s: String, ending_pos: KoreanPos): List[KoreanPosTrie] = {
-    def isFinal(rest: String): Boolean = {
-      val isNextOptional = rest.foldLeft(true) {
-        case (output: Boolean, c: Char) if c == '+' || c == '1' => false
-        case (output: Boolean, c: Char) => output
-      }
-      rest.length == 0 || isNextOptional
-    }
-
-    if (s.length < 2) {
-      return List()
-    }
-
-    val pos = shortCut(s.charAt(0))
-    val rule = s.charAt(1)
-    val rest = s.slice(2, s.length)
-
-    val end: Option[KoreanPos] = if (isFinal(rest)) Some(ending_pos) else None
-
-    rule match {
-      case '+' =>
-        List(KoreanPosTrie(pos, selfNode :: buildTrie(rest, ending_pos), end))
-      case '*' =>
-        List(KoreanPosTrie(pos, selfNode :: buildTrie(rest, ending_pos), end)) ++ buildTrie(rest, ending_pos)
-      case '1' =>
-        List(KoreanPosTrie(pos, buildTrie(rest, ending_pos), end))
-      case '0' =>
-        List(KoreanPosTrie(pos, buildTrie(rest, ending_pos), end)) ++ buildTrie(rest, ending_pos)
-    }
-  }
-
-  protected[processor] def getTrie(sequences: Map[String, KoreanPos]): List[KoreanPosTrie] =
-    sequences.foldLeft(List[KoreanPosTrie]()) {
-      case (results: List[KoreanPosTrie], (s: String, ending_pos: KoreanPos)) =>
-        buildTrie(s, ending_pos) ::: results
-    }
-*/
 }

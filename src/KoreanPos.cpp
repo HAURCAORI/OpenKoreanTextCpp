@@ -52,16 +52,9 @@ const std::map<wchar_t, KoreanPos::KoreanPosEnum> KoreanPos::shortCut = {
 
 const std::set<KoreanPos::KoreanPosEnum> KoreanPos::Predicates = {KoreanPosEnum::Verb, KoreanPosEnum::Adjective};
 
-std::vector<KoreanPos::KoreanPosTrie> KoreanPos::bulildTrie(const std::wstring& s, KoreanPosEnum ending_pos) {
-    const std::vector<KoreanPosTrie> ret;
-    return ret;
+std::vector<KoreanPosTrie> KoreanPos::buildTrie(const std::wstring& s, KoreanPosEnum ending_pos) {
+    if(s.length() < 2) { return std::vector<KoreanPosTrie>(); }
 
-    /*
-    std::vector<KoreanPosTrie> result;
-    if(s.length() < 2) { return result; }
-
-    
-    /*
     KoreanPosEnum pos = shortCut.find(s[0])->second;
     wchar_t rule = s[1];
     std::wstring rest = s.substr(2);
@@ -69,21 +62,28 @@ std::vector<KoreanPos::KoreanPosTrie> KoreanPos::bulildTrie(const std::wstring& 
     KoreanPosEnum end = (isFinal(rest)) ? ending_pos : KoreanPosEnum::Null;
     
 
-    switch(rule) {
-      case L'+':
-      result.push_back(KoreanPosTrie{pos,  * bulildTrie(rest, ending_pos), end});
-      break;
-      case L'*':
-      
-      break;
-      case L'1':
-      
-      break;
-      case L'0':
-      
-      break;
-    }
-    return result;
-    */
+    if(rule == L'+')
+        return std::vector<KoreanPosTrie>(1, KoreanPosTrie{pos, KoreanPosTrie::selfNodeVec() * buildTrie(rest, ending_pos), end});
+    if(rule == L'*')
+        return std::vector<KoreanPosTrie>(1, KoreanPosTrie{pos, KoreanPosTrie::selfNodeVec() * buildTrie(rest, ending_pos), end}) * buildTrie(rest ,ending_pos);
+    if(rule == L'1')
+        return std::vector<KoreanPosTrie>(1, KoreanPosTrie{pos, buildTrie(rest, ending_pos), end});
+    if(rule == L'0')
+        return std::vector<KoreanPosTrie>(1, KoreanPosTrie{pos, buildTrie(rest, ending_pos), end}) * buildTrie(rest ,ending_pos);
 };
-  
+
+std::vector<KoreanPosTrie> KoreanPos::getTrie(std::map<std::wstring, KoreanPos::KoreanPosEnum> sequences) {
+    std::vector<KoreanPosTrie> ret;
+    for(auto it = sequences.begin(); it != sequences.end(); ++it) {
+        ret = buildTrie(it->first,it->second) * ret;
+    }
+}
+/*
+
+
+  protected[processor] def getTrie(sequences: Map[String, KoreanPos]): List[KoreanPosTrie] =
+    sequences.foldLeft(List[KoreanPosTrie]()) {
+      case (results: List[KoreanPosTrie], (s: String, ending_pos: KoreanPos)) =>
+        buildTrie(s, ending_pos) ::: results
+    }
+*/
