@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <set>
+#include <vector>
 /**
  * Korean Part-of-Speech
  *
@@ -45,10 +46,21 @@ namespace OpenKorean {
 
 class KoreanPos {
 private:
-  
+  static bool isFinal(const std::wstring& rest) {
+    bool isNextOptional = [](const std::wstring& rest) {
+      bool output = true;
+      for(auto it = rest.begin(); it != rest.end(); ++it) {
+        if(*it == L'+' || *it == L'1') { output = false; }
+      }
+      return output;
+    };
+    return rest.length() == 0 || isNextOptional; 
+  }
 
 public:
   enum class KoreanPosEnum {
+    Null = 0, 
+
     Noun, Verb, Adjective, 
     Adverb, Determiner, Exclamation,
     Josa, Eomi, PreEomi, Conjunction,
@@ -67,11 +79,33 @@ public:
     //추가
     SpamNouns, FamilyName, GivenName, FullName
   };
+
+  struct KoreanPosTrie {
+    KoreanPosEnum curPos;
+    std::vector<KoreanPosTrie> nextTrie;
+    KoreanPosEnum ending;
+    
+    static KoreanPosTrie selfNode() { return {KoreanPosEnum::Null, std::vector<KoreanPosTrie>(), KoreanPosEnum::Null}; }
+  };
   
   static const std::set<KoreanPosEnum> OtherPoses;
   static const std::map<KoreanPosEnum,std::string> TagString;
-  static const std::map<char, KoreanPosEnum> shortCut;
+  static const std::map<wchar_t, KoreanPosEnum> shortCut;
   static const std::set<KoreanPosEnum> Predicates;
+  static std::vector<KoreanPosTrie> bulildTrie(const std::wstring& s, KoreanPosEnum ending_pos);
+  
+  /*
+  rule match {
+      case '+' =>
+        List(KoreanPosTrie(pos, selfNode :: buildTrie(rest, ending_pos), end))
+      case '*' =>
+        List(KoreanPosTrie(pos, selfNode :: buildTrie(rest, ending_pos), end)) ++ buildTrie(rest, ending_pos)
+      case '1' =>
+        List(KoreanPosTrie(pos, buildTrie(rest, ending_pos), end))
+      case '0' =>
+        List(KoreanPosTrie(pos, buildTrie(rest, ending_pos), end)) ++ buildTrie(rest, ending_pos)
+    }
+    */
 };
 
 /*

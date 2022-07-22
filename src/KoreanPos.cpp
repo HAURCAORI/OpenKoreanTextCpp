@@ -3,6 +3,14 @@
 
 using namespace OpenKorean;
 
+template<typename T>
+std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
+    std::vector<T> temp;
+    temp.insert(temp.begin(), lhs.begin(), lhs.end());
+    temp.insert(temp.begin(), rhs.begin(), rhs.end());
+    return temp;
+}
+
 const std::set<KoreanPos::KoreanPosEnum> KoreanPos::OtherPoses = {
     KoreanPosEnum::Korean, KoreanPosEnum::Foreign, KoreanPosEnum::Number, KoreanPosEnum::KoreanParticle, KoreanPosEnum::Alpha,
     KoreanPosEnum::Punctuation, KoreanPosEnum::Hashtag, KoreanPosEnum::ScreenName,
@@ -20,26 +28,62 @@ const std::map<KoreanPos::KoreanPosEnum, std::string> KoreanPos::TagString = {
     cmap(SpamNouns), cmap(FamilyName), cmap(GivenName), cmap(FullName)
 };
 
-const std::map<char, KoreanPos::KoreanPosEnum> KoreanPos::shortCut = {
-    {'N',KoreanPosEnum::Noun},
-    {'V',KoreanPosEnum::Verb},
-    {'J',KoreanPosEnum::Adjective},
-    {'A',KoreanPosEnum::Adverb},
-    {'D',KoreanPosEnum::Determiner},
-    {'E',KoreanPosEnum::Exclamation},
-    {'C',KoreanPosEnum::Conjunction},
+const std::map<wchar_t, KoreanPos::KoreanPosEnum> KoreanPos::shortCut = {
+    {L'N',KoreanPosEnum::Noun},
+    {L'V',KoreanPosEnum::Verb},
+    {L'J',KoreanPosEnum::Adjective},
+    {L'A',KoreanPosEnum::Adverb},
+    {L'D',KoreanPosEnum::Determiner},
+    {L'E',KoreanPosEnum::Exclamation},
+    {L'C',KoreanPosEnum::Conjunction},
 
-    {'j',KoreanPosEnum::Josa},
-    {'e',KoreanPosEnum::Eomi},
-    {'r',KoreanPosEnum::PreEomi},
-    {'m',KoreanPosEnum::Modifier},
-    {'v',KoreanPosEnum::VerbPrefix},
-    {'s',KoreanPosEnum::Suffix},
+    {L'j',KoreanPosEnum::Josa},
+    {L'e',KoreanPosEnum::Eomi},
+    {L'r',KoreanPosEnum::PreEomi},
+    {L'm',KoreanPosEnum::Modifier},
+    {L'v',KoreanPosEnum::VerbPrefix},
+    {L's',KoreanPosEnum::Suffix},
 
-    {'a',KoreanPosEnum::Alpha},
-    {'n',KoreanPosEnum::Number},
+    {L'a',KoreanPosEnum::Alpha},
+    {L'n',KoreanPosEnum::Number},
 
-    {'o',KoreanPosEnum::Others}
+    {L'o',KoreanPosEnum::Others}
 };
 
 const std::set<KoreanPos::KoreanPosEnum> KoreanPos::Predicates = {KoreanPosEnum::Verb, KoreanPosEnum::Adjective};
+
+std::vector<KoreanPos::KoreanPosTrie> KoreanPos::bulildTrie(const std::wstring& s, KoreanPosEnum ending_pos) {
+    const std::vector<KoreanPosTrie> ret;
+    return ret;
+
+    /*
+    std::vector<KoreanPosTrie> result;
+    if(s.length() < 2) { return result; }
+
+    
+    /*
+    KoreanPosEnum pos = shortCut.find(s[0])->second;
+    wchar_t rule = s[1];
+    std::wstring rest = s.substr(2);
+    
+    KoreanPosEnum end = (isFinal(rest)) ? ending_pos : KoreanPosEnum::Null;
+    
+
+    switch(rule) {
+      case L'+':
+      result.push_back(KoreanPosTrie{pos,  * bulildTrie(rest, ending_pos), end});
+      break;
+      case L'*':
+      
+      break;
+      case L'1':
+      
+      break;
+      case L'0':
+      
+      break;
+    }
+    return result;
+    */
+};
+  
