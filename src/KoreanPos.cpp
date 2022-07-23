@@ -70,6 +70,8 @@ std::vector<KoreanPosTrie> KoreanPos::buildTrie(const std::wstring& s, KoreanPos
         return std::vector<KoreanPosTrie>(1, KoreanPosTrie{pos, buildTrie(rest, ending_pos), end});
     if(rule == L'0')
         return std::vector<KoreanPosTrie>(1, KoreanPosTrie{pos, buildTrie(rest, ending_pos), end}) * buildTrie(rest ,ending_pos);
+    
+    return std::vector<KoreanPosTrie>();
 };
 
 std::vector<KoreanPosTrie> KoreanPos::getTrie(std::map<std::wstring, KoreanPos::KoreanPosEnum> sequences) {
@@ -77,4 +79,5 @@ std::vector<KoreanPosTrie> KoreanPos::getTrie(std::map<std::wstring, KoreanPos::
     for(auto it = sequences.begin(); it != sequences.end(); ++it) {
         ret = buildTrie(it->first,it->second) * ret;
     }
+    return ret;
 }

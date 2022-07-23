@@ -3,10 +3,18 @@
 #include <iostream>
 using namespace OpenKorean;
 
+inline int Start(std::wsregex_iterator it) {
+  return it->position(0);
+}
+
+inline int End(std::wsregex_iterator it) {
+  return it->position(0) + (*it)[0].length();
+}
+
 inline std::wstring substrPos(const std::wstring& str, size_t start, size_t end) {
   if(end < start) { return str; }
   if(start > str.length()) { return L""; }
-  return str.substr(start, end - start + 1);
+  return str.substr(start, end - start);
 }
 
 const std::map<KoreanPos::KoreanPosEnum, std::wregex> KoreanChunker::POS_PATTERNS = {
@@ -29,6 +37,12 @@ const std::vector<KoreanPos::KoreanPosEnum> KoreanChunker::CHUNKING_ORDER = { Ko
     KoreanPos::KoreanPosEnum::Punctuation
 };
 
+//std::vector<ChunkMatch> KoreanChunker::findAllPatterns(const std::wsmatch& match, KoreanPos::KoreanPosEnum pos, const std::vector<ChunkMatch>& matches) {}
+std::vector<ChunkMatch> KoreanChunker::splitChunks(const std::wstring& text) {
+  
+}
+//std::vector<ChunkMatch> KoreanChunker::fillInUnmatched(const std::wstring& text, const std::vector<ChunkMatch>& chunks, KoreanPos::KoreanPosEnum pos) {}
+
 //std::vector<std::wstring> getChunks(const std::wstring& input, bool keepSpace = false);
 std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wstring& s) {
   std::wregex space(LR"(\s+)");
@@ -41,10 +55,10 @@ std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wst
   int index = 0;
   while(start != end) {
     if(index < start->position(0)) {
-      tokens.push_back(substrPos(s, index, start->position(0)-1));
+      tokens.push_back(substrPos(s, index, Start(start)));
     }
-    tokens.push_back(substrPos(s, start->position(0), start->position(0) + (*start)[0].length()-1));
-    index = start->position(0) + (*start)[0].length();
+    tokens.push_back(substrPos(s, Start(start), End(start)));
+    index = End(start);
     ++start;
   }
   if((unsigned) index < s.length()) {
