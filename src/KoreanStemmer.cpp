@@ -1,4 +1,5 @@
 #include "KoreanStemmer.hpp"
+#include <algorithm>
 
 using namespace OpenKorean;
 
@@ -34,9 +35,11 @@ std::vector<KoreanToken> KoreanStemmer::stem(const std::vector<KoreanToken>& tok
                 ret = std::vector<KoreanToken>(1, *it) * ret;
             }
         } else if(Predicates.find(it->pos) != Predicates.end()) {
-            //ret = { KoreanToken{it->text, it->pos, it->offset, it->length, predicateStems(it->pos)//prevToken.stem, prevToken.unknown}, ret.back() };
+            ret = { KoreanToken{it->text, it->pos, it->offset, it->length, mKoreanDictionaryProvider.getPredicateStems()->find(it->pos)->second.find(it->text)->second, it->unknown} };//prevToken.stem, prevToken.unknown}, ret.back() };
         } else {
             ret = std::vector<KoreanToken>(1, *it) * ret;
         }
     }
+    std::reverse(ret.begin(), ret.end());
+    return ret;
 }

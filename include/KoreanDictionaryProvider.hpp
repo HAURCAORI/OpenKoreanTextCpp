@@ -57,6 +57,8 @@ public:
     bool fileCheck();
     void load();
     void clear();
+
+    inline std::unordered_map<KoreanPos::KoreanPosEnum, std::map<std::wstring, std::wstring>>* getPredicateStems() { return &predicateStems; }
     
     inline Dictionary getDictionary(KoreanPos::KoreanPosEnum tag) const {
         if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }

@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
 #include "KoreanPos.hpp"
-#include "KoreanTokenizer.hpp"
+#include "KoreanToken.hpp"
 #include "KoreanDictionaryProvider.hpp"
 
 namespace OpenKorean {
@@ -15,7 +15,6 @@ private:
 
 public:
     KoreanStemmer(KoreanDictionaryProvider& m) : mKoreanDictionaryProvider(std::ref(m)) {}
-    static std::vector<KoreanToken> stem(const std::vector<KoreanToken>& tokens);
-
+    std::vector<KoreanToken> stem(const std::vector<KoreanToken>& tokens);
 };
 }

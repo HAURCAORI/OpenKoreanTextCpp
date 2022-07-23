@@ -131,7 +131,7 @@ obj/KoreanStemmer.o: src/KoreanStemmer.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/stl_uninitialized.h \
  /usr/include/c++/7/bits/stl_vector.h \
  /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
- include/KoreanTokenizer.hpp include/KoreanDictionaryProvider.hpp \
+ include/KoreanToken.hpp include/KoreanDictionaryProvider.hpp \
  /usr/include/c++/7/iostream /usr/include/c++/7/ostream \
  /usr/include/c++/7/ios /usr/include/c++/7/bits/ios_base.h \
  /usr/include/c++/7/bits/locale_classes.h \
