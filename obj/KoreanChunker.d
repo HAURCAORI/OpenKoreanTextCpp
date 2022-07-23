@@ -131,8 +131,8 @@ obj/KoreanChunker.o: src/KoreanChunker.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/stl_uninitialized.h \
  /usr/include/c++/7/bits/stl_vector.h \
  /usr/include/c++/7/bits/stl_bvector.h /usr/include/c++/7/bits/vector.tcc \
- /usr/include/c++/7/regex /usr/include/c++/7/algorithm \
- /usr/include/c++/7/bits/stl_algo.h \
+ include/KoreanToken.hpp /usr/include/c++/7/regex \
+ /usr/include/c++/7/algorithm /usr/include/c++/7/bits/stl_algo.h \
  /usr/include/c++/7/bits/algorithmfwd.h \
  /usr/include/c++/7/bits/stl_heap.h /usr/include/c++/7/bits/stl_tempbuf.h \
  /usr/include/c++/7/bits/uniform_int_dist.h /usr/include/c++/7/limits \
@@ -191,4 +191,4 @@ obj/KoreanChunker.o: src/KoreanChunker.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/regex_compiler.tcc \
  /usr/include/c++/7/bits/regex.h /usr/include/c++/7/bits/regex.tcc \
  /usr/include/c++/7/bits/regex_executor.h \
- /usr/include/c++/7/bits/regex_executor.tcc
+ /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/iostream

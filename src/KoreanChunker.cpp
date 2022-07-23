@@ -1,5 +1,6 @@
 #include "KoreanChunker.hpp"
-
+#include <algorithm>
+#include <iostream>
 using namespace OpenKorean;
 
 
@@ -22,3 +23,31 @@ const std::vector<KoreanPos::KoreanPosEnum> KoreanChunker::CHUNKING_ORDER = { Ko
     KoreanPos::KoreanPosEnum::Korean, KoreanPos::KoreanPosEnum::KoreanParticle, KoreanPos::KoreanPosEnum::Alpha,
     KoreanPos::KoreanPosEnum::Punctuation
 };
+
+//std::vector<std::wstring> getChunks(const std::wstring& input, bool keepSpace = false);
+std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wstring& s) {
+  std::wregex space(LR"(\s+)");
+  auto start = std::wsregex_iterator(s.begin(), s.end(), space);
+  auto end = std::wsregex_iterator();
+
+  if(start == end) { return {s}; } // 매칭 결과가 없을 시
+
+  std::vector<std::wstring> tokens;
+  size_t index = 0;
+  while(start != end) {
+    std::wcout << index << "/" << start->position(0) << std::endl;
+    if(index < start->position(0)) {
+
+    }
+    ++start;
+  }
+  if(index < s.length()) {
+    tokens.push_back(s.substr(index));
+  }
+  return tokens;
+}
+//std::vector<KoreanToken> getChunksByPos(const std::wstring& input, KoreanPos::KoreanPosEnum pos);
+
+std::vector<KoreanToken> KoreanChunker::chunk(const std::wstring& input) {
+  
+}
