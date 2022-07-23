@@ -3,6 +3,11 @@
 #include <iostream>
 using namespace OpenKorean;
 
+inline std::wstring substrPos(const std::wstring& str, size_t start, size_t end) {
+  if(end < start) { return str; }
+  if(start > str.length()) { return L""; }
+  return str.substr(start, end - start + 1);
+}
 
 const std::map<KoreanPos::KoreanPosEnum, std::wregex> KoreanChunker::POS_PATTERNS = {
     { KoreanPos::KoreanPosEnum::Korean, std::wregex(LR"(([가-힣]+))") },
@@ -33,15 +38,18 @@ std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wst
   if(start == end) { return {s}; } // 매칭 결과가 없을 시
 
   std::vector<std::wstring> tokens;
-  size_t index = 0;
+  int index = 0;
   while(start != end) {
     std::wcout << index << "/" << start->position(0) << std::endl;
     if(index < start->position(0)) {
-
+      tokens.push_back(substrPos(s, index, start->position(0)));
     }
+    tokens.push_back(substrPos(s, index, start->position(0)));
+    std::wcout << L"length" << (*start)[0].length() << std::endl;
+    //index = start->position(0) + start->length();
     ++start;
   }
-  if(index < s.length()) {
+  if((unsigned) index < s.length()) {
     tokens.push_back(s.substr(index));
   }
   return tokens;
