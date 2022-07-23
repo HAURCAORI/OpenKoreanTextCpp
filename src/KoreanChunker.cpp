@@ -40,13 +40,11 @@ std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wst
   std::vector<std::wstring> tokens;
   int index = 0;
   while(start != end) {
-    std::wcout << index << "/" << start->position(0) << std::endl;
     if(index < start->position(0)) {
-      tokens.push_back(substrPos(s, index, start->position(0)));
+      tokens.push_back(substrPos(s, index, start->position(0)-1));
     }
-    tokens.push_back(substrPos(s, index, start->position(0)));
-    std::wcout << L"length" << (*start)[0].length() << std::endl;
-    //index = start->position(0) + start->length();
+    tokens.push_back(substrPos(s, start->position(0), start->position(0) + (*start)[0].length()-1));
+    index = start->position(0) + (*start)[0].length();
     ++start;
   }
   if((unsigned) index < s.length()) {

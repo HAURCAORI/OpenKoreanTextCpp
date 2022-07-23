@@ -32,7 +32,7 @@ void printMap(std::map<T,U> m) {
 
 void printVec(std::vector<std::wstring> m) {
     for(auto it = m.begin(); it != m.end(); ++it) {
-        std::wcout << *it << std::endl;
+        std::wcout << *it << L"/" << it->length() << std::endl;
     }
 }
 
@@ -42,8 +42,6 @@ int main() {
     //test_conjugation();
     //printMap(OpenKorean::KoreanConjugation::getConjugationMap({ L"가", L"가까워지", L"가꾸", L"가꾸어지", L"가누" },true));
     
-    auto temp = OpenKorean::KoreanChunker::splitBySpaceKeepingSpace(L"가나다 라마 바사아자 자차");
-    printVec(temp);
     //OpenKorean::OpenKoreanTextProcessor m;
     //std::wstring text = LR"(슬프뮤ㅠㅠ)";
     //std::wcout << m.normalize(text) << std::endl;
