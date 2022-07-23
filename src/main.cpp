@@ -7,7 +7,7 @@
 
 #include <chrono>
 #define BEGIN_CHRONO std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-#define END_CHRONO std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
+#define END_CHRONO std::wcout << L"Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() << "[ms]" << std::endl;
 
 void test_conjugation() {
     std::wcout << L"test1" << std::endl;
@@ -22,14 +22,23 @@ void test_conjugation() {
     }
 }
 
+template<typename T, typename U>
+void printMap(std::map<T,U> m) {
+    for(auto it = m.begin(); it != m.end(); ++it) {
+        std::wcout << it->first << L"/" << it->second << std::endl;
+    }
+}
+
 int main() {
     std::locale::global(std::locale(""));
     //test_conjugation();
+    //printMap(OpenKorean::KoreanConjugation::getConjugationMap({ L"가", L"가까워지", L"가꾸", L"가꾸어지", L"가누" },true));
 
     OpenKorean::OpenKoreanTextProcessor m;
+
     std::wstring text = LR"(슬프뮤ㅠㅠ)";
-    //test_normalizeEmotionAttachedChunk(m);
     std::wcout << m.normalize(text) << std::endl;
+
     /*
     std::string ts("가가호호");
     std::wstring ws(ts.begin(), ts.end());

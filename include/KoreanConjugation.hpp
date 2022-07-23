@@ -75,5 +75,6 @@ public:
 
     static Dictionary conjugatePredicated(const std::wstring& words, bool isAdjective = false);
     static Dictionary conjugatePredicated(const std::vector<std::wstring>& vec_words, bool isAdjective = false);
+    static std::map<std::wstring, std::wstring> getConjugationMap(const std::vector<std::wstring>& words, bool isAdjective);
 };
 }

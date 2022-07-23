@@ -351,3 +351,19 @@ Dictionary KoreanConjugation::conjugatePredicated(const std::vector<std::wstring
     }
     return ret;
 }
+
+std::map<std::wstring, std::wstring> KoreanConjugation::getConjugationMap(const std::vector<std::wstring>& vec_words, bool isAdjective) {
+    std::map<std::wstring, std::wstring> ret;
+    for(auto it = vec_words.begin(); it != vec_words.end(); ++it) {
+        const ExpandedWord expanded(*it);
+        std::vector<std::wstring> temp = prependVector_s(expanding(expanded, isAdjective), expanded.init) * expanding_irregular(expanded);
+        std::transform(temp.begin(),temp.end(), std::inserter(ret,ret.end()),[&](const std::wstring& s) { return std::make_pair(s, *it + L"다");});
+    }
+    if(!isAdjective) {
+        ret.erase(L"아니");
+        ret.erase(L"입");
+        ret.erase(L"입니");
+        ret.erase(L"나는");
+    }
+    return ret;
+}

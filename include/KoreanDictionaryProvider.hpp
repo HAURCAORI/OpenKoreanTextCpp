@@ -27,7 +27,7 @@ private:
     std::unordered_map<KoreanPos::KoreanPosEnum, Dictionary> koreanDictionary;
     std::unordered_map<std::wstring, float> koreanEntityFreq;
     //typoDictionaryByLength
-    //predicateStems
+    std::unordered_map<KoreanPos::KoreanPosEnum, std::map<std::wstring, std::wstring>> predicateStems;
 
     bool isloaded = false;
     void readStreamByLine(std::string filename);
@@ -38,6 +38,7 @@ private:
     std::vector<std::wstring> readWordsAsVector(const FilePaths& filenames);
     Dictionary readWords(const FilePaths& filenames);
     //readFileByLineFromResources
+    
 
 #if defined(__linux__) || defined(__unix__)
     inline bool fileExist(const std::string& filename) {

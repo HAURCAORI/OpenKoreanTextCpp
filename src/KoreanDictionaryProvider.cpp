@@ -98,6 +98,7 @@ Dictionary KoreanDictionaryProvider::readWords(const FilePaths& filenames) {
 }
 
 
+
 /*
     파일의 존재 유무 확인
 */
@@ -129,6 +130,7 @@ void KoreanDictionaryProvider::load() {
         return;
     }
     try {
+        //koreanDictionary Load
         ProcessLog::log(ProcessLog::Process, "Loading...");
         for(auto iterType = DataPaths.begin(); iterType != DataPaths.end(); ++iterType) {
             ProcessLog::logs("loading : " + KoreanPos::TagString.find(iterType->first)->second + "...");
@@ -141,7 +143,13 @@ void KoreanDictionaryProvider::load() {
             }
             ProcessLog::log(" OK");
         }
-        ProcessLog::log(ProcessLog::Success, "Loading");
+
+        // predicateStems Load
+        ProcessLog::log(ProcessLog::Process, "Loading PredicateStems...");
+        predicateStems.insert(std::make_pair(KoreanPos::KoreanPosEnum::Verb, KoreanConjugation::getConjugationMap(readWordsAsVector(DataPaths.find(KoreanPos::KoreanPosEnum::Verb)->second), false)));
+        predicateStems.insert(std::make_pair(KoreanPos::KoreanPosEnum::Adjective, KoreanConjugation::getConjugationMap(readWordsAsVector(DataPaths.find(KoreanPos::KoreanPosEnum::Adjective)->second), true)));
+        
+        ProcessLog::log(ProcessLog::Success, "Loading Success");
     } catch (const std::ios_base::failure& ex) {
         std::cerr << ex.what() << std::endl;
         ProcessLog::log(ProcessLog::Error, "[Error] Fail to Load");
