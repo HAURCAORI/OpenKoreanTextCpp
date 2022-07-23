@@ -36,12 +36,19 @@ void printVec(std::vector<std::wstring> m) {
     }
 }
 
+template<typename T>
+std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
+    std::vector<T> temp;
+    temp.insert(temp.begin(), lhs.begin(), lhs.end());
+    temp.insert(temp.end(), rhs.begin(), rhs.end());
+    return temp;
+}
 
 int main() {
     std::locale::global(std::locale(""));
     //test_conjugation();
     //printMap(OpenKorean::KoreanConjugation::getConjugationMap({ L"가", L"가까워지", L"가꾸", L"가꾸어지", L"가누" },true));
-    
+
     //auto temp = OpenKorean::KoreanChunker::splitBySpaceKeepingSpace(L" 가나  다라마 바 사아자 ");
     //printVec(temp);
 

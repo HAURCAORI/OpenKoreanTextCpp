@@ -37,7 +37,16 @@ const std::vector<KoreanPos::KoreanPosEnum> KoreanChunker::CHUNKING_ORDER = { Ko
     KoreanPos::KoreanPosEnum::Punctuation
 };
 
-//std::vector<ChunkMatch> KoreanChunker::findAllPatterns(const std::wsmatch& match, KoreanPos::KoreanPosEnum pos, const std::vector<ChunkMatch>& matches) {}
+std::vector<ChunkMatch> KoreanChunker::findAllPatterns(const std::wsmatch& m, KoreanPos::KoreanPosEnum pos, const std::vector<ChunkMatch>& matches) {
+  if(!m.empty()) {
+    std::vector<ChunkMatch> ret(1, ChunkMatch{(int) m.position(0), (int) (m.position(0) + m[0].length()), m[0], pos});
+    ret.insert(ret.end(), matches.begin(), matches.end());
+    return findAllPatterns(m, pos, ret);
+  } else {
+    return matches;
+  }
+}
+
 std::vector<ChunkMatch> KoreanChunker::splitChunks(const std::wstring& text) {
   if(text[0] == L' ') {
     return std::vector<ChunkMatch>(1, ChunkMatch{0, (signed) text.length() , text, KoreanPos::KoreanPosEnum::Space});
@@ -59,9 +68,10 @@ std::vector<ChunkMatch> KoreanChunker::splitChunks(const std::wstring& text) {
       }
     }
     std::sort(ret.begin(), ret.end(), [](const ChunkMatch& T, const ChunkMatch& U) -> bool { return T.start < U.start; } );
-    fillInUnmatched(text, ret, KoreanPos::KoreanPosEnum::Foreign);
+    return fillInUnmatched(text, ret, KoreanPos::KoreanPosEnum::Foreign);
   }
 }
+
 std::vector<ChunkMatch> KoreanChunker::fillInUnmatched(const std::wstring& text, const std::vector<ChunkMatch>& chunks, KoreanPos::KoreanPosEnum pos) {
   std::vector<ChunkMatch> ret;
   int prevEnd = 0;
@@ -80,10 +90,17 @@ std::vector<ChunkMatch> KoreanChunker::fillInUnmatched(const std::wstring& text,
   if(prevEnd < (signed) text.length()) {
     ret.insert(ret.begin(), ChunkMatch{prevEnd, (signed) text.length(), substrPos(text, prevEnd, text.length()), pos});
   }
+  std::reverse(ret.begin(), ret.end());
   return ret;
 }
 
-//std::vector<std::wstring> getChunks(const std::wstring& input, bool keepSpace = false);
+std::vector<std::wstring> KoreanChunker::getChunks(const std::wstring& input, bool keepSpace) {
+  std::vector<std::wstring> ret;
+  std::vector<KoreanToken> temp = chunk(input);
+  std::transform(temp.begin(), temp.end(), ret.begin(), [](KoreanToken& t) { return t.text; });
+  return ret;
+}
+
 std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wstring& s) {
   std::wregex space(LR"(\s+)");
   auto start = std::wsregex_iterator(s.begin(), s.end(), space);
@@ -106,8 +123,27 @@ std::vector<std::wstring> KoreanChunker::splitBySpaceKeepingSpace(const std::wst
   }
   return tokens;
 }
-//std::vector<KoreanToken> getChunksByPos(const std::wstring& input, KoreanPos::KoreanPosEnum pos);
+std::vector<KoreanToken> KoreanChunker::getChunksByPos(const std::wstring& input, KoreanPos::KoreanPosEnum pos) {
+  std::vector<KoreanToken> ret;
+  std::vector<KoreanToken> temp = chunk(input);
+  std::copy_if(temp.begin(), temp.end(), std::back_inserter(ret), [&](KoreanToken& t){ return t.pos == pos; } );
+  return ret;
+}
 
 std::vector<KoreanToken> KoreanChunker::chunk(const std::wstring& input) {
-  
+  //std::vector<std::wstring> sps = splitBySpaceKeepingSpace(input);
+  //std::vector<ChunkMatch> spcm;
+  //std::transform(sps.begin(), sps.end(), spcm.begin(), [](const std::wstring& s) { return splitChunks(s); });
+
+  std::vector<KoreanToken> l;
+  /*
+  int i = 0;
+  for(auto it = spcm.begin(); it != spcm.end(); ++it) {
+    int segStart = input.find(it->text ,i);
+    l.insert(l.begin(), KoreanToken{it->text, it->pos, segStart, (signed) it->text.length()});
+    i = segStart + it->text.length();
+  }
+  std::reverse(l.begin(), l.end());
+  */
+  return l;
 }

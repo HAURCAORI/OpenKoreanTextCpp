@@ -7,7 +7,7 @@ template<typename T>
 std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
     std::vector<T> temp;
     temp.insert(temp.begin(), lhs.begin(), lhs.end());
-    temp.insert(temp.begin(), rhs.begin(), rhs.end());
+    temp.insert(temp.end(), rhs.begin(), rhs.end());
     return temp;
 }
 

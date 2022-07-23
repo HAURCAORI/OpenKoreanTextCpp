@@ -26,7 +26,7 @@ private:
     static const std::map<KoreanPos::KoreanPosEnum, std::wregex> POS_PATTERNS;
     static const std::vector<KoreanPos::KoreanPosEnum> CHUNKING_ORDER;
     
-    static std::vector<ChunkMatch> findAllPatterns(const std::wsmatch& match, KoreanPos::KoreanPosEnum pos, const std::vector<ChunkMatch>& matches = std::vector<ChunkMatch>());
+    static std::vector<ChunkMatch> findAllPatterns(const std::wsmatch& m, KoreanPos::KoreanPosEnum pos, const std::vector<ChunkMatch>& matches = std::vector<ChunkMatch>());
     static std::vector<ChunkMatch> splitChunks(const std::wstring& text);
     static std::vector<ChunkMatch> fillInUnmatched(const std::wstring& text, const std::vector<ChunkMatch>& chunks, KoreanPos::KoreanPosEnum pos);
 public:
