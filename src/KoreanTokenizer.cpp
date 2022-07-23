@@ -19,6 +19,10 @@ const std::map<std::wstring, KoreanPos::KoreanPosEnum> KoreanTokenizer::Sequence
 const std::vector<KoreanPosTrie> KoreanTokenizer::koreanPosTrie = KoreanPos::getTrie(KoreanTokenizer::SequenceDefinition);
 
 std::vector<KoreanToken> KoreanTokenizer::tokenize(const std::wstring& text, TokenizerProfile profile) {
-     std::vector<KoreanToken> tokenized = tokenizeTopN(text, 1, profile);
+    std::vector<KoreanToken> tokenized;// = tokenizeTopN(text, 1, profile);
     mKoreanStemmer.stem(tokenized);
+}
+
+std::vector<std::vector<std::vector<KoreanToken>>> KoreanTokenizer::tokenizeTopN(const std::wstring& text, int topN, TokenizerProfile profile) {
+    
 }

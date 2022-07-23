@@ -21,5 +21,6 @@ private:
 public:
     KoreanTokenizer(KoreanStemmer& m) : mKoreanStemmer(std::ref(m)) {}
     std::vector<KoreanToken> tokenize(const std::wstring& text, TokenizerProfile profile = TokenizerProfile());
+    std::vector<std::vector<std::vector<KoreanToken>>> tokenizeTopN(const std::wstring& text, int topN = 1, TokenizerProfile profile = TokenizerProfile());
 };
 }
