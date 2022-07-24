@@ -5,11 +5,21 @@
 
 #include <algorithm>
 
+template <typename Enumeration>
+auto as_integer(Enumeration const value) -> typename std::underlying_type<Enumeration>::type
+{
+    return static_cast<typename std::underlying_type<Enumeration>::type>(value);
+}
+
 namespace OpenKorean {
 class ParsedChunk {
 private:
     static const std::set<KoreanPos::KoreanPosEnum> suffixes;
     static const std::set<KoreanPos::KoreanPosEnum> preferredBeforeHaVerb;
+
+    const std::vector<KoreanToken> m_posNodes;
+    const int m_words;
+    const TokenizerProfile m_profile;
 
     float score;
     int countUnknowns;
@@ -20,11 +30,15 @@ private:
     int isAllNouns;
     int isPreferredPattern;
     int isNounHa;
-    int posTieBreaker;
+    int posTieBreaker; // KoreanPos enum 순서로 결정
     int getUnknownCoverage;
-
+    float getFreqScore;
+    //int countPos;
+    int josaMismatched;
+    
+    
 public:
-    ParsedChunk(const std::vector<KoreanToken>& posNodes, int words, TokenizerProfile profile = TokenizerProfile()) {
+    ParsedChunk(const std::vector<KoreanToken>& posNodes, int words, TokenizerProfile profile = TokenizerProfile()) : m_posNodes(posNodes), m_words(words), m_profile(profile) {
         countUnknowns = std::count_if(posNodes.begin(), posNodes.end(), [](const KoreanToken& token) { return token.unknown; });
         countTokens = posNodes.size();
         isInitializePosition = (suffixes.find(posNodes.front().pos) != suffixes.end()) ? 1 : 0;
@@ -50,10 +64,38 @@ public:
             && ( posNodes[1].text.front() == L'하' || posNodes[1].text.front() == L'해' )
         ) ? 0 : 1;
 
-        //posTieBreaker = 
+        int sum_ptb = 0;
+        for(auto it = posNodes.begin(); it != posNodes.end(); ++it) {
+            sum_ptb += as_integer(it->pos);
+        }
+        posTieBreaker = sum_ptb;
+
+        int sum = 0;
+        for(auto it = posNodes.begin(); it != posNodes.end(); ++it) {
+            if(it->unknown) {
+                sum += it->text.length();
+            }
+        }
+        getUnknownCoverage = sum;
+
+        //getFreqScore;
+
+        
 
         //score = 
     }
 
+    int countPos(KoreanPos::KoreanPosEnum pos) {
+        return std::count_if(m_posNodes.begin(), m_posNodes.end(), [&](const KoreanToken& token) { return token.pos == pos; });
+    }
+
+    ParsedChunk operator*(const ParsedChunk& rhs) {
+        std::vector<KoreanToken> ret(this->m_posNodes.begin(), this->m_posNodes.end());
+        ret.insert(ret.end(), rhs.m_posNodes.begin(), rhs.m_posNodes.end());
+        return ParsedChunk(ret, this->m_words + rhs.m_words, this->m_profile);
+    }
 };
+
+
+
 }
