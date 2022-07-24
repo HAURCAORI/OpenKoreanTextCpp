@@ -21,4 +21,8 @@ struct KoreanToken {
         return {this->text, pos, this->offset, this->length, std::wstring(), this->unknown};
     }
 };
+
+struct CandidateParse {
+    
+};
 }
