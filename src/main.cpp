@@ -44,9 +44,20 @@ std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
     return temp;
 }
 
+void test_Chunker() {
+    auto ret = OpenKorean::KoreanChunker::chunk(L"2014년 벨기에 출신 소프트웨어 엔지니어로서 주 관심사는 C++, 프로그래밍 언어, 알고리즘, 데이터 구조다.ㅋㅋㅋ ㅠㅠㅠ");
+    for(auto it = ret.begin(); it != ret.end(); ++it) {
+        std::string pos = OpenKorean::KoreanPos::TagString.find(it->pos)->second;
+        std::wcout << L"@" << it->text << "|" << it->offset << "," << it->length << "," << it->stem << "," << convert_wstring(pos) << std::endl;
+    }
+}
+
 int main() {
     std::locale::global(std::locale(""));
+
     //test_conjugation();
+    test_Chunker();
+    
     //printMap(OpenKorean::KoreanConjugation::getConjugationMap({ L"가", L"가까워지", L"가꾸", L"가꾸어지", L"가누" },true));
 
     //auto temp = OpenKorean::KoreanChunker::splitBySpaceKeepingSpace(L" 가나  다라마 바 사아자 ");

@@ -1,5 +1,6 @@
 #include "KoreanChunker.hpp"
 #include <algorithm>
+
 #include <iostream>
 using namespace OpenKorean;
 
@@ -22,7 +23,7 @@ const std::map<KoreanPos::KoreanPosEnum, std::wregex> KoreanChunker::POS_PATTERN
     { KoreanPos::KoreanPosEnum::Alpha, std::wregex(LR"(([a-zA-Z]+))") },
     { KoreanPos::KoreanPosEnum::Number, std::wregex(LR"((\$?[0-9]+(,[0-9]{3})*([/~:\.-][0-9]+)?(천|만|억|조)*(%|원|달러|위안|옌|엔|유로|등|년|월|일|회|시간|시|분|초)?))") },
     { KoreanPos::KoreanPosEnum::KoreanParticle, std::wregex(LR"(([ㄱ-ㅣ]+))") },
-    { KoreanPos::KoreanPosEnum::Punctuation, std::wregex(LR"(([^\s\w]|[_])+)") },
+    { KoreanPos::KoreanPosEnum::Punctuation, std::wregex(LR"([!"#$%&'()*+,./:;<=>?@\\^_`{|}~]+)") },
     { KoreanPos::KoreanPosEnum::URL, std::wregex(LR"([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?)") },
     { KoreanPos::KoreanPosEnum::Email, std::wregex(LR"(([a-zA-Z0-9\.\-_]+@[a-zA-Z0-9\.]+))") },
     { KoreanPos::KoreanPosEnum::Hashtag, std::wregex(LR"(([#＃]+)([a-zA-Z가-힣_]+[a-zA-Z0-9가-힣_]*))") },
@@ -64,7 +65,9 @@ std::vector<ChunkMatch> KoreanChunker::splitChunks(const std::wstring& text) {
             ret.push_back(cm);
             matchedLen += cm.end - cm.start;
           }
+          ++start;
         }
+        
       }
     }
     std::sort(ret.begin(), ret.end(), [](const ChunkMatch& T, const ChunkMatch& U) -> bool { return T.start < U.start; } );
@@ -131,12 +134,15 @@ std::vector<KoreanToken> KoreanChunker::getChunksByPos(const std::wstring& input
 }
 
 std::vector<KoreanToken> KoreanChunker::chunk(const std::wstring& input) {
-  //std::vector<std::wstring> sps = splitBySpaceKeepingSpace(input);
-  //std::vector<ChunkMatch> spcm;
-  //std::transform(sps.begin(), sps.end(), spcm.begin(), [](const std::wstring& s) { return splitChunks(s); });
+  std::vector<std::wstring> sps = splitBySpaceKeepingSpace(input);
+  std::vector<ChunkMatch> spcm;
+  
+  for(auto it = sps.begin(); it != sps.end(); ++it) {
+    std::vector<ChunkMatch> temp = splitChunks(*it);
+    spcm.insert(spcm.end(), temp.begin(), temp.end());
+  }
 
   std::vector<KoreanToken> l;
-  /*
   int i = 0;
   for(auto it = spcm.begin(); it != spcm.end(); ++it) {
     int segStart = input.find(it->text ,i);
@@ -144,6 +150,6 @@ std::vector<KoreanToken> KoreanChunker::chunk(const std::wstring& input) {
     i = segStart + it->text.length();
   }
   std::reverse(l.begin(), l.end());
-  */
+  
   return l;
 }
