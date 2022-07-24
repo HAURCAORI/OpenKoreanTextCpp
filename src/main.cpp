@@ -30,6 +30,15 @@ void printMap(std::map<T,U> m) {
     }
 }
 
+template<typename T>
+void printVec(std::vector<T> m) {
+    for(auto it = m.begin(); it != m.end(); ++it) {
+        std::wcout << *it << L" ";
+    }
+    std::wcout << std::endl;
+}
+
+
 void printVec(std::vector<std::wstring> m) {
     for(auto it = m.begin(); it != m.end(); ++it) {
         std::wcout << *it << L"/" << it->length() << std::endl;
@@ -56,7 +65,7 @@ int main() {
     std::locale::global(std::locale(""));
 
     //test_conjugation();
-    test_Chunker();
+    //test_Chunker();
     
     //printMap(OpenKorean::KoreanConjugation::getConjugationMap({ L"가", L"가까워지", L"가꾸", L"가꾸어지", L"가누" },true));
 

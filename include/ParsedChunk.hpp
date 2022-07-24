@@ -1,9 +1,23 @@
 #pragma once
 #include "KoreanPos.hpp"
+#include "Hangul.hpp"
 #include "KoreanToken.hpp"
 #include "TokenizerProfile.hpp"
 
 #include <algorithm>
+
+template <typename T>
+std::vector<std::vector<T>> sliding(const std::vector<T>& vec, size_t window){
+    if(vec.size() <= window) {
+        return std::vector<std::vector<T>>(1, vec);
+    }
+    std::vector<std::vector<T>> ret;
+    for(auto it = vec.begin(); it != vec.end(); ++it) {
+        if(it + window - 1 == vec.end()) { break; }
+        ret.insert(ret.end(), std::vector<T>(it, it + window));
+    }
+    return ret;
+}
 
 template <typename Enumeration>
 auto as_integer(Enumeration const value) -> typename std::underlying_type<Enumeration>::type
@@ -16,6 +30,8 @@ class ParsedChunk {
 private:
     static const std::set<KoreanPos::KoreanPosEnum> suffixes;
     static const std::set<KoreanPos::KoreanPosEnum> preferredBeforeHaVerb;
+    static const std::set<std::wstring> josaCheck_1;
+    static const std::set<std::wstring> josaCheck_2;
 
     const std::vector<KoreanToken> m_posNodes;
     const int m_words;
@@ -24,7 +40,7 @@ private:
     float score;
     int countUnknowns;
     int countTokens;
-    int isInitializePosition;
+    int isInitialPostPosition;
     int isExactMatch;
     int hasSpaceOutOfGuide;
     int isAllNouns;
@@ -41,7 +57,7 @@ public:
     ParsedChunk(const std::vector<KoreanToken>& posNodes, int words, TokenizerProfile profile = TokenizerProfile()) : m_posNodes(posNodes), m_words(words), m_profile(profile) {
         countUnknowns = std::count_if(posNodes.begin(), posNodes.end(), [](const KoreanToken& token) { return token.unknown; });
         countTokens = posNodes.size();
-        isInitializePosition = (suffixes.find(posNodes.front().pos) != suffixes.end()) ? 1 : 0;
+        isInitialPostPosition = (suffixes.find(posNodes.front().pos) != suffixes.end()) ? 1 : 0;
         isExactMatch = (posNodes.size() == 1) ? 0 : 1;
         if(profile.spaceGuide.empty()) {
             hasSpaceOutOfGuide = 0;
@@ -80,9 +96,34 @@ public:
 
         //getFreqScore;
 
-        
-
-        //score = 
+        std::vector<std::vector<KoreanToken>> sld = sliding(posNodes,2);
+        josaMismatched = (std::any_of(sld.begin(), sld.end(), [](const std::vector<KoreanToken>& tokenPair){ 
+            if(tokenPair.front().pos == KoreanPos::KoreanPosEnum::Noun && tokenPair.back().pos == KoreanPos::KoreanPosEnum::Josa) {
+                if(Hangul::hasCoda(tokenPair.front().text.back())) {
+                    HangulChar nounEnding = Hangul::decomposeHangul(tokenPair.front().text.back());
+                    return (nounEnding.coda != L'ㄹ' && tokenPair.back().text.front() == L'로') || (josaCheck_1.find(tokenPair.back().text) != josaCheck_1.end());
+                } else {
+                    return tokenPair.back().text.front() == L'으' || (josaCheck_2.find(tokenPair.back().text) != josaCheck_2.end());
+                }
+            } else {
+                return false;
+            }
+         } )) ? 1 : 0;
+        score = countTokens * profile.tokenCount +
+            countUnknowns * profile.unknown +
+            words * profile.wordCount +
+            getUnknownCoverage * profile.unknownCoverage +
+            getFreqScore * profile.freq +
+            countPos(KoreanPos::KoreanPosEnum::Unknown) * profile.unknownPosCount +
+            isExactMatch * profile.exactMatch +
+            isAllNouns * profile.allNoun +
+            isPreferredPattern * profile.preferredPattern +
+            countPos(KoreanPos::KoreanPosEnum::Determiner) * profile.determinerPosCount +
+            countPos(KoreanPos::KoreanPosEnum::Exclamation) * profile.exclamationPosCount +
+            isInitialPostPosition * profile.initialPostPosition +
+            isNounHa * profile.haVerb +
+            hasSpaceOutOfGuide * profile.spaceGuidePenalty +
+            josaMismatched * profile.josaUnmatchedPenalty;
     }
 
     int countPos(KoreanPos::KoreanPosEnum pos) {
