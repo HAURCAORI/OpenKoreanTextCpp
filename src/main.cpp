@@ -45,7 +45,7 @@ std::vector<T> operator*(const std::vector<T>& lhs, const std::vector<T>& rhs) {
 }
 
 void test_Chunker() {
-    auto ret = OpenKorean::KoreanChunker::chunk(L"2014년 벨기에 출신 소프트웨어 엔지니어로서 주 관심사는 C++, 프로그래밍 언어, 알고리즘, 데이터 구조다.ㅋㅋㅋ ㅠㅠㅠ");
+    auto ret = OpenKorean::KoreanChunker::chunk(L"openkorean@gmail.com");
     for(auto it = ret.begin(); it != ret.end(); ++it) {
         std::string pos = OpenKorean::KoreanPos::TagString.find(it->pos)->second;
         std::wcout << L"@" << it->text << "|" << it->offset << "," << it->length << "," << it->stem << "," << convert_wstring(pos) << std::endl;

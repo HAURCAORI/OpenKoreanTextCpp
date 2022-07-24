@@ -1,3 +1,10 @@
+- 코드 이식
+- 모든 함수 정상 동작 및 edge case 점검
+- 리펙토링
+- 최적화
+- 리펙토링
+
+
 ▷인터페이스
 src/main/java/org/openkoreantext/processor/
 KoreanPosJava.java
@@ -26,9 +33,9 @@ src/main/scala/org/openkoreantext/processor/qa
 src/main/scala/org/openkoreantext/processor/stemmer
 	7) KoreanStemmer.scala (100%) 결과 확인 필요
 src/main/scala/org/openkoreantext/processor/tokenizer
-	8) KoreanChunker.scala (50%)
+	8) KoreanChunker.scala (100%)
     9) KoreanDetokenizer.scala
-    10) KoreanSentenceSplitter.scala
+    10) KoreanSentenceSplitter.scala (100%)
     11) KoreanTokenizer.scala (5%)
     12) ParasedChunk.scala
     13) TokenizerProfile.scala (100%)
