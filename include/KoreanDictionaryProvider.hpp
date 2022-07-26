@@ -60,7 +60,12 @@ public:
 
     inline std::unordered_map<KoreanPos::KoreanPosEnum, std::map<std::wstring, std::wstring>>* getPredicateStems() { return &predicateStems; }
     
-    inline Dictionary getDictionary(KoreanPos::KoreanPosEnum tag) const {
+    
+    const std::unordered_map<KoreanPos::KoreanPosEnum, Dictionary>& getDictionaries() const {
+        if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }
+        return (koreanDictionary);
+    }
+    const Dictionary& getDictionary(KoreanPos::KoreanPosEnum tag) const {
         if(!isloaded) { throw std::runtime_error("Dictionary not loaded."); }
         return (koreanDictionary.find(tag)->second);
     }

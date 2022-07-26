@@ -28,7 +28,12 @@ std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanT
 }
 
 std::vector<std::vector<KoreanToken>> KoreanTokenizer::findDirectMatch(KoreanToken chunk) {
-    
+    auto& dic = mKoreanDictionaryProvider.getDictionaries();
+    for(auto it = dic.begin(); it != dic.end(); ++it) {
+        if(it->second.find(chunk.text) != it->second.end()) {
+            return std::vector<std::vector<KoreanToken>>(1,std::vector<KoreanToken>(1, {chunk.text, it->first, chunk.offset, chunk.length}));
+        }
+    }
     return std::vector<std::vector<KoreanToken>>();
 }
 
