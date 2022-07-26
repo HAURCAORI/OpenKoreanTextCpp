@@ -11,7 +11,7 @@ private:
     KoreanStemmer mKoreanStemmer;
     KoreanTokenizer mKoreanTokenizer;
 public:
-    OpenKoreanTextProcessor() : mKoreanDictionaryProvider(), mKoreanNormalizer(mKoreanDictionaryProvider), mKoreanStemmer(mKoreanDictionaryProvider), mKoreanTokenizer(mKoreanStemmer) {}
+    OpenKoreanTextProcessor() : mKoreanDictionaryProvider(), mKoreanNormalizer(mKoreanDictionaryProvider), mKoreanStemmer(mKoreanDictionaryProvider), mKoreanTokenizer(mKoreanDictionaryProvider, mKoreanStemmer) {}
     
     inline std::wstring normalize(std::wstring text) {
         return mKoreanNormalizer.normalize(text);

@@ -18,8 +18,24 @@ const std::map<std::wstring, KoreanPos::KoreanPosEnum> KoreanTokenizer::Sequence
 
 const std::vector<KoreanPosTrie> KoreanTokenizer::koreanPosTrie = KoreanPos::getTrie(KoreanTokenizer::SequenceDefinition);
 
+std::vector<std::vector<KoreanToken>> KoreanTokenizer::parseKoreanChunk(KoreanToken chunk, TokenizerProfile profile, int topN) {
+    auto candidates = findTopCandidates(chunk, profile);
+    return ((signed) candidates.size() < topN ) ? candidates : std::vector<std::vector<KoreanToken>>(candidates.begin(),  candidates.begin() + topN);
+}
+
+std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanToken chunk, TokenizerProfile profile) {
+    return std::vector<std::vector<KoreanToken>>();
+}
+
+std::vector<std::vector<KoreanToken>> KoreanTokenizer::findDirectMatch(KoreanToken chunk) {
+    
+    return std::vector<std::vector<KoreanToken>>();
+}
+
 std::vector<KoreanToken> KoreanTokenizer::tokenize(const std::wstring& text, TokenizerProfile profile) {
-    std::vector<KoreanToken> tokenized;// = tokenizeTopN(text, 1, profile);
+    //std::vector<std::vector<std::vector<KoreanToken>>> temp = tokenizeTopN(text, 1, profile);
+    std::vector<KoreanToken> tokenized;
+
     return mKoreanStemmer.stem(tokenized);
 }
 
