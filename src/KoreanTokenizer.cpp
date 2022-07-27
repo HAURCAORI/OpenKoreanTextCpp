@@ -45,6 +45,7 @@ std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanT
             std::vector<CandidateParse> curSolutions = solutions[start];
             std::vector<CandidateParse> candidates;
             
+            
             std::transform(curSolutions.begin(),curSolutions.end(),candidates.begin(), [&](CandidateParse& solution) {
                 
                 std::vector<PossibleTrie> possiblePoses;
@@ -52,13 +53,21 @@ std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanT
                 if(solution.ending != KoreanPos::KoreanPosEnum::Null) {
                     std::transform(koreanPosTrie.begin(), koreanPosTrie.end(), std::back_inserter(possiblePoses), [](KoreanPosTrie& t) {return PossibleTrie(t,1); });
                 }
-                
                 std::vector<PossibleTrie> filtered;
-                /*
+                
                 std::copy_if(possiblePoses.begin(), possiblePoses.end(), filtered.begin(), [&](PossibleTrie& t) {
-                    return (t.curTrie == KoreanPos::KoreanPosEnum::Noun) ||
+                    return (t.curTrie.curPos == KoreanPos::KoreanPosEnum::Noun) || mKoreanDictionaryProvider.contain(t.curTrie.curPos, word);
                 });
+                /*
+                for(auto it = filtered.begin(); it != filtered.end(); ++it) {
+                    ParsedChunk candidateToAdd;
+                    if(it->curTrie.curPos == KoreanPos::KoreanPosEnum::Noun && !mKoreanDictionaryProvider.contain(KoreanPos::KoreanPosEnum::Noun, word)) {
+                        //bool isWordName = 
+                    }
+
+                }
                 */
+               
                 //possiblePoses
 
                 return solution;

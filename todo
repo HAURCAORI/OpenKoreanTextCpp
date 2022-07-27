@@ -36,7 +36,7 @@ src/main/scala/org/openkoreantext/processor/tokenizer
 	8) KoreanChunker.scala (100%)
     9) KoreanDetokenizer.scala
     10) KoreanSentenceSplitter.scala (100%)
-    11) KoreanTokenizer.scala (5%)
+    11) KoreanTokenizer.scala (40%)
     12) ParasedChunk.scala (100%)
     13) TokenizerProfile.scala (100%)
 src/main/scala/org/openkoreantext/processor/tools
