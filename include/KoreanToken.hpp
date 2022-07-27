@@ -2,6 +2,7 @@
 #include "KoreanPos.hpp"
 
 namespace OpenKorean {
+
 struct KoreanToken {
     std::wstring text;
     KoreanPos::KoreanPosEnum pos;
@@ -21,8 +22,10 @@ struct KoreanToken {
         return {this->text, pos, this->offset, this->length, std::wstring(), this->unknown};
     }
 };
-
-struct CandidateParse {
-    
+struct PossibleTrie {
+    KoreanPosTrie curTrie;
+    int words;
+    PossibleTrie(KoreanPosTrie& c, int w) : curTrie(c), words(w) {}
 };
+//struct CandidateParse => ParsedChunk
 }

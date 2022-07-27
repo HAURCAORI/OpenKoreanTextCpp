@@ -26,6 +26,7 @@ auto as_integer(Enumeration const value) -> typename std::underlying_type<Enumer
 }
 
 namespace OpenKorean {
+
 class ParsedChunk {
 private:
     static const std::set<KoreanPos::KoreanPosEnum> suffixes;
@@ -33,9 +34,9 @@ private:
     static const std::set<std::wstring> josaCheck_1;
     static const std::set<std::wstring> josaCheck_2;
 
-    const std::vector<KoreanToken> m_posNodes;
-    const int m_words;
-    const TokenizerProfile m_profile;
+    std::vector<KoreanToken> m_posNodes;
+    int m_words;
+    TokenizerProfile m_profile;
 
     float score;
     int countUnknowns;
@@ -54,6 +55,7 @@ private:
     
     
 public:
+    ParsedChunk() = default;
     ParsedChunk(const std::vector<KoreanToken>& posNodes, int words, TokenizerProfile profile = TokenizerProfile()) : m_posNodes(posNodes), m_words(words), m_profile(profile) {
         countUnknowns = std::count_if(posNodes.begin(), posNodes.end(), [](const KoreanToken& token) { return token.unknown; });
         countTokens = posNodes.size();
@@ -138,5 +140,11 @@ public:
 };
 
 
+struct CandidateParse {
+    ParsedChunk parse;
+    std::vector<KoreanPosTrie> curTrie;
+    KoreanPos::KoreanPosEnum ending;
+    CandidateParse(const ParsedChunk& p, const std::vector<KoreanPosTrie>& c, KoreanPos::KoreanPosEnum e) : parse(p), curTrie(c), ending(e) {}
+};
 
 }

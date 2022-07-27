@@ -18,15 +18,19 @@ private:
     static const int MAX_TRACE_BACK = 8;
     static const std::map<std::wstring, KoreanPos::KoreanPosEnum> SequenceDefinition;
 
-    static const std::vector<KoreanPosTrie> koreanPosTrie;
+    std::vector<KoreanPosTrie> koreanPosTrie;
 
     std::vector<std::vector<KoreanToken>> parseKoreanChunk(KoreanToken chunk, TokenizerProfile profile = TokenizerProfile(), int topN = 1);
     std::vector<std::vector<KoreanToken>> findTopCandidates(KoreanToken chunk, TokenizerProfile profile);
-    //std::unordered_map<int,int> removeUnusedSolutions(int start, int end, std::unordered_map<int,int> solutions);
+    
+    template<typename T>
+    void removeUnusedSolutions(int start, int end, std::unordered_map<int,T>& solutions);
     std::vector<std::vector<KoreanToken>> findDirectMatch(KoreanToken chunk);
 
 public:
-    KoreanTokenizer(KoreanDictionaryProvider& md, KoreanStemmer& ms) :  mKoreanDictionaryProvider(std::ref(md)), mKoreanStemmer(std::ref(ms)) {}
+    KoreanTokenizer(KoreanDictionaryProvider& md, KoreanStemmer& ms) :  mKoreanDictionaryProvider(std::ref(md)), mKoreanStemmer(std::ref(ms)) {
+        koreanPosTrie = KoreanPos::getTrie(KoreanTokenizer::SequenceDefinition);
+    }
     std::vector<KoreanToken> tokenize(const std::wstring& text, TokenizerProfile profile = TokenizerProfile());
     std::vector<std::vector<std::vector<KoreanToken>>> tokenizeTopN(const std::wstring& text, int topN = 1, TokenizerProfile profile = TokenizerProfile());
 };

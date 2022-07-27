@@ -1,6 +1,14 @@
 #include "KoreanTokenizer.hpp"
+#include "ParsedChunk.hpp"
+
 
 using namespace OpenKorean;
+
+inline std::wstring substrPos(const std::wstring& str, size_t start, size_t end) {
+  if(end < start) { return str; }
+  if(start > str.length()) { return L""; }
+  return str.substr(start, end - start);
+}
 
 const std::map<std::wstring, KoreanPos::KoreanPosEnum> KoreanTokenizer::SequenceDefinition = {
     // Substantive
@@ -16,16 +24,60 @@ const std::map<std::wstring, KoreanPos::KoreanPosEnum> KoreanTokenizer::Sequence
     {L"j1", KoreanPos::KoreanPosEnum::Josa}
 };
 
-const std::vector<KoreanPosTrie> KoreanTokenizer::koreanPosTrie = KoreanPos::getTrie(KoreanTokenizer::SequenceDefinition);
-
 std::vector<std::vector<KoreanToken>> KoreanTokenizer::parseKoreanChunk(KoreanToken chunk, TokenizerProfile profile, int topN) {
     auto candidates = findTopCandidates(chunk, profile);
     return ((signed) candidates.size() < topN ) ? candidates : std::vector<std::vector<KoreanToken>>(candidates.begin(),  candidates.begin() + topN);
 }
 
 std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanToken chunk, TokenizerProfile profile) {
+    
+    std::vector<std::vector<KoreanToken>> directMatch = findDirectMatch(chunk);
+    std::unordered_map<int, std::vector<CandidateParse>> solutions;
+    std::vector<KoreanToken> empty;
+    solutions.insert(std::make_pair(0,std::vector<CandidateParse>(1, CandidateParse(ParsedChunk(empty, 1, profile), koreanPosTrie, KoreanPos::KoreanPosEnum::Null))));
+
+    for(int end = 1; end <= chunk.length; ++end) {
+        for(int start = end - 1; start >= std::max(end-MAX_TRACE_BACK,0); --start) {
+            std::wstring word = substrPos(chunk.text, start, end);
+            
+            removeUnusedSolutions(start,end, solutions);
+
+            std::vector<CandidateParse> curSolutions = solutions[start];
+            std::vector<CandidateParse> candidates;
+            
+            std::transform(curSolutions.begin(),curSolutions.end(),candidates.begin(), [&](CandidateParse& solution) {
+                
+                std::vector<PossibleTrie> possiblePoses;
+                std::transform(solution.curTrie.begin(), solution.curTrie.end(), possiblePoses.begin(), [](KoreanPosTrie& t) {return PossibleTrie(t,0); });
+                if(solution.ending != KoreanPos::KoreanPosEnum::Null) {
+                    std::transform(koreanPosTrie.begin(), koreanPosTrie.end(), std::back_inserter(possiblePoses), [](KoreanPosTrie& t) {return PossibleTrie(t,1); });
+                }
+                
+                std::vector<PossibleTrie> filtered;
+                /*
+                std::copy_if(possiblePoses.begin(), possiblePoses.end(), filtered.begin(), [&](PossibleTrie& t) {
+                    return (t.curTrie == KoreanPos::KoreanPosEnum::Noun) ||
+                });
+                */
+                //possiblePoses
+
+                return solution;
+            });
+            
+        }
+    }
+    
+
     return std::vector<std::vector<KoreanToken>>();
 }
+
+template<typename T>
+void KoreanTokenizer::removeUnusedSolutions(int start, int end, std::unordered_map<int,T>& solutions) {
+    if(end > MAX_TRACE_BACK && start + 1 == end) {
+        solutions.erase(end - MAX_TRACE_BACK -1);
+    }
+}
+
 
 std::vector<std::vector<KoreanToken>> KoreanTokenizer::findDirectMatch(KoreanToken chunk) {
     auto& dic = mKoreanDictionaryProvider.getDictionaries();
