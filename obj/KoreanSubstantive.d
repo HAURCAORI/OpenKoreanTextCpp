@@ -162,4 +162,4 @@ obj/KoreanSubstantive.o: src/KoreanSubstantive.cpp \
  include/KoreanConjugation.hpp /usr/include/c++/7/functional \
  /usr/include/c++/7/bits/std_function.h /usr/include/c++/7/bits/refwrap.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
- /usr/include/x86_64-linux-gnu/bits/stat.h
+ /usr/include/x86_64-linux-gnu/bits/stat.h include/KoreanToken.hpp
