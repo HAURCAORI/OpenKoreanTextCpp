@@ -112,7 +112,6 @@ std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanT
         }
     }
     
-    //std::unordered_map<int, std::vector<CandidateParse>> solutions
     std::vector<std::vector<KoreanToken>> topCandidates;
     if(solutions.find(chunk.length) == solutions.end()) {
         topCandidates = std::vector<std::vector<KoreanToken>>(1, std::vector<KoreanToken>(1, KoreanToken{chunk.text, KoreanPos::KoreanPosEnum::Noun, 0, chunk.length, std::wstring(), true}));
@@ -128,7 +127,7 @@ std::vector<std::vector<KoreanToken>> KoreanTokenizer::findTopCandidates(KoreanT
         }
     }
 
-    return directMatch * topCandidates;
+    return directMatch * topCandidates;//distinct
 }
 
 template<typename T>
