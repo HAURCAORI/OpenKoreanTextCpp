@@ -52,4 +52,4 @@ src/main/scala/org/openkoreantext/processor/until
     22) KoreanConjugation.scala (100%)
     23) KoreanDictionaryProvider.scala (80%)
     24) KoreanPos.scala (100%)
-    25) KoreanSubstantive.scala (10%)
+    25) KoreanSubstantive.scala (100%)
