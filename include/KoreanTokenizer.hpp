@@ -4,6 +4,7 @@
 #include "KoreanToken.hpp"
 #include "TokenizerProfile.hpp"
 #include "KoreanStemmer.hpp"
+#include "KoreanSubstantive.hpp"
 
 namespace OpenKorean {
 
@@ -13,6 +14,7 @@ class KoreanTokenizer {
 private:
     KoreanDictionaryProvider& mKoreanDictionaryProvider;
     KoreanStemmer& mKoreanStemmer;
+    KoreanSubstantive& mKoreanSubstantive;
 
     static const int TOP_N_PER_STATE = 5;
     static const int MAX_TRACE_BACK = 8;
@@ -28,7 +30,7 @@ private:
     std::vector<std::vector<KoreanToken>> findDirectMatch(KoreanToken chunk);
 
 public:
-    KoreanTokenizer(KoreanDictionaryProvider& md, KoreanStemmer& ms) :  mKoreanDictionaryProvider(std::ref(md)), mKoreanStemmer(std::ref(ms)) {
+    KoreanTokenizer(KoreanDictionaryProvider& md, KoreanStemmer& ms) :  mKoreanDictionaryProvider(std::ref(md)), mKoreanStemmer(std::ref(ms)), mKoreanSubstantive(std::ref(mKoreanSubstantive)) {
         koreanPosTrie = KoreanPos::getTrie(KoreanTokenizer::SequenceDefinition);
     }
     std::vector<KoreanToken> tokenize(const std::wstring& text, TokenizerProfile profile = TokenizerProfile());

@@ -22,6 +22,6 @@ struct TokenizerProfile {
     float spaceGuidePenalty = 3.0f;
     float josaUnmatchedPenalty = 3.0f;
 
-    TokenizerProfile();
+    TokenizerProfile() = default;
 };
 }

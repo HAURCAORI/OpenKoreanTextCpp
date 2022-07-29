@@ -202,5 +202,6 @@ obj/main.o: src/main.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/regex_executor.tcc /usr/include/c++/7/codecvt \
  include/KoreanStemmer.hpp include/KoreanToken.hpp \
  include/KoreanTokenizer.hpp include/TokenizerProfile.hpp \
- include/KoreanChunker.hpp /usr/include/c++/7/chrono \
- /usr/include/c++/7/ratio /usr/include/c++/7/bits/parse_numbers.h
+ include/KoreanSubstantive.hpp include/KoreanChunker.hpp \
+ /usr/include/c++/7/chrono /usr/include/c++/7/ratio \
+ /usr/include/c++/7/bits/parse_numbers.h

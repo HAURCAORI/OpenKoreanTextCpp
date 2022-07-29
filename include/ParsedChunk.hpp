@@ -38,7 +38,7 @@ private:
     int m_words;
     TokenizerProfile m_profile;
 
-    float score;
+    
     int countUnknowns;
     int countTokens;
     int isInitialPostPosition;
@@ -47,7 +47,7 @@ private:
     int isAllNouns;
     int isPreferredPattern;
     int isNounHa;
-    int posTieBreaker; // KoreanPos enum 순서로 결정
+    
     int getUnknownCoverage;
     float getFreqScore;
     //int countPos;
@@ -55,6 +55,9 @@ private:
     
     
 public:
+    float score;
+    int posTieBreaker; // KoreanPos enum 순서로 결정
+
     ParsedChunk() = default;
     ParsedChunk(const std::vector<KoreanToken>& posNodes, int words, TokenizerProfile profile = TokenizerProfile()) : m_posNodes(posNodes), m_words(words), m_profile(profile) {
         countUnknowns = std::count_if(posNodes.begin(), posNodes.end(), [](const KoreanToken& token) { return token.unknown; });
@@ -137,6 +140,8 @@ public:
         ret.insert(ret.end(), rhs.m_posNodes.begin(), rhs.m_posNodes.end());
         return ParsedChunk(ret, this->m_words + rhs.m_words, this->m_profile);
     }
+
+    inline std::vector<KoreanToken> posNodes() { return m_posNodes; }
 };
 
 
@@ -144,6 +149,7 @@ struct CandidateParse {
     ParsedChunk parse;
     std::vector<KoreanPosTrie> curTrie;
     KoreanPos::KoreanPosEnum ending;
+    CandidateParse() = default;
     CandidateParse(const ParsedChunk& p, const std::vector<KoreanPosTrie>& c, KoreanPos::KoreanPosEnum e) : parse(p), curTrie(c), ending(e) {}
 };
 

@@ -99,6 +99,12 @@ struct KoreanPosTrie {
     
   static KoreanPosTrie selfNode() { return {KoreanPos::KoreanPosEnum::Null, std::vector<KoreanPosTrie>(), KoreanPos::KoreanPosEnum::Null}; }
   static std::vector<KoreanPosTrie>selfNodeVec() { return std::vector<KoreanPosTrie>(1, selfNode()); }
+
+  KoreanPosTrie(KoreanPos::KoreanPosEnum c, const std::vector<KoreanPosTrie> n, KoreanPos::KoreanPosEnum e) : curPos(c), nextTrie(n), ending(e) {}
+
+  bool isSelfNode() {
+    return (curPos == KoreanPos::KoreanPosEnum::Null) && (ending == KoreanPos::KoreanPosEnum::Null);
+  }
 };
 
 
