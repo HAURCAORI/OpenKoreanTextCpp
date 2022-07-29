@@ -20,6 +20,5 @@ public:
     bool isName(const std::wstring& chunk);
     bool isKoreanNameVariation(const std::wstring& chunk);
     std::vector<KoreanToken> collapseNouns(const std::vector<KoreanToken>& posNodes);
-    
 };
 }
